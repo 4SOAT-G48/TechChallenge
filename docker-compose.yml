@@ -14,9 +14,15 @@ services:
       dockerfile: Dockerfile-spring
     ports:
       - "8081:8080"
+    volumes:
+      - volume-log:/logs
     depends_on:
       - db
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/tc_soat4_g48
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=Senha48
+      - LOGGING_FILE_NAME=/logs/grupo48.log
+
+volumes:
+  volume-log:
