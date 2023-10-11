@@ -3,7 +3,7 @@
 # Usando a imagem oficial do PostgreSQL
 FROM postgres:16-alpine
 
-# Configurar variáveis de ambiente para inicialização do PostgreSQL
+# Configuração das variáveis de ambiente para inicialização do PostgreSQL
 ENV POSTGRES_USER admin
 ENV POSTGRES_PASSWORD Senha48
 ENV POSTGRES_DB tc_soat4_g48

@@ -5,15 +5,21 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-postgres
+    container_name: tc_soat4_g48_db
     ports:
       - "5432:5432"
+    networks:
+      - tc_soat4_g48_network
 
   spring:
     build:
       context: .
       dockerfile: Dockerfile-spring
+    container_name: tc_soat4_g48_app
     ports:
       - "8081:8080"
+    networks:
+      - tc_soat4_g48_network
     volumes:
       - volume-log:/logs
     depends_on:
@@ -26,3 +32,6 @@ services:
 
 volumes:
   volume-log:
+networks:
+  tc_soat4_g48_network:
+    driver: bridge
