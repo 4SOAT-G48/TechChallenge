@@ -6,6 +6,8 @@ import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -26,11 +28,25 @@ public class ProdutoRepository implements ProdutoRepositoryPort {
 
     @Override
     public Produto buscarPeloCodigo(UUID codigo) {
-        return null;
+        Optional<ProdutoEntity> produtoEntityOptional = this.springProdutoRepository.findById(codigo);
+        if (produtoEntityOptional.isPresent()) {
+            ProdutoEntity produtoEntity = produtoEntityOptional.get();
+            return produtoEntity.toProduto();
+        } else {
+            return null;
+        }
     }
 
     @Override
     public void salvar(Produto produto) {
+        ProdutoEntity produtoEntity;
+        if(Objects.isNull(produto.getCodigo())) {
+            produtoEntity = new ProdutoEntity(produto);
+        } else {
+            produtoEntity = this.springProdutoRepository.findById(produto.getCodigo()).get();
+            produtoEntity.atualizar(produto);
+        }
 
+        this.springProdutoRepository.save(produtoEntity);
     }
 }

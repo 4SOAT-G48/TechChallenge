@@ -25,8 +25,23 @@ public class ProdutoEntity {
     public ProdutoEntity() {
     }
 
+    public ProdutoEntity(Produto produto) {
+        this.nome = produto.getNome();
+        this.categoria = produto.getCategoria();
+        this.preco = produto.getPreco();
+        this.descricao = produto.getDescricao();
+        this.situacao = produto.getSituacao();
+    }
+
     public Produto toProduto() {
         return new Produto(this.codigo,this.nome,this.categoria,this.preco,this.descricao,this.situacao);
     }
 
+    public void atualizar(Produto produto) {
+        this.nome = produto.getNome();
+        this.categoria = produto.getCategoria();
+        this.preco = produto.getPreco();
+        this.descricao = produto.getDescricao();
+        this.situacao = produto.getSituacao();
+    }
 }

@@ -5,6 +5,8 @@ import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoServicePort;
 import br.com.fiap.soat.grupo48.application.produto.port.spi.ProdutoRepositoryPort;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 public class ManutecaoProdutoServiceImpl implements ProdutoServicePort {
 
@@ -21,17 +23,26 @@ public class ManutecaoProdutoServiceImpl implements ProdutoServicePort {
     }
 
     @Override
-    public void criarProduto(Produto produto) {
-
+    public Produto buscarPeloCodigo(UUID codigo) {
+        return this.produtoRepository.buscarPeloCodigo(codigo);
     }
 
     @Override
-    public void atualizarProduto(Produto produto) {
+    public void criarProduto(Produto produto) {
+        this.produtoRepository.salvar(produto);
+    }
 
+    @Override
+    public void atualizarProduto(UUID codigo, Produto produto) {
+        Produto produtoAtu = this.produtoRepository.buscarPeloCodigo(codigo);
+        if (!Objects.isNull(produtoAtu)) {
+            produto.setCodigo(codigo);
+            this.produtoRepository.salvar(produto);
+        }
     }
 
     @Override
     public void excluirProduto(Produto produto) {
-
+        this.produtoRepository.salvar(produto);
     }
 }
