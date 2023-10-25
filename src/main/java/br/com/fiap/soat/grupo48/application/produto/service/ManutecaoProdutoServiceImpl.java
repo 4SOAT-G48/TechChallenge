@@ -16,7 +16,7 @@ public class ManutecaoProdutoServiceImpl implements ProdutoServicePort {
 
     @Override
     public List<Produto> buscarProdutos() {
-        List<Produto> produtos = this.buscarProdutos();
+        List<Produto> produtos = this.produtoRepository.buscarTodos();
         return produtos;
     }
 

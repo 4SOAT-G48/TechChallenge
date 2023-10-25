@@ -1,8 +1,8 @@
-package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repository;
 
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.port.spi.ProdutoRepositoryPort;
-import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.entity.ProdutoEntity;
+import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.ProdutoEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
