@@ -15,5 +15,5 @@ public interface ProdutoServicePort {
 
     void atualizarProduto(UUID codigo, Produto produto);
 
-    void excluirProduto(Produto produto);
+    void excluirProduto(UUID codigo);
 }

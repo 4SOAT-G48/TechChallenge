@@ -49,4 +49,9 @@ public class ProdutoRepository implements ProdutoRepositoryPort {
 
         this.springProdutoRepository.save(produtoEntity);
     }
+
+    @Override
+    public void excluir(UUID codigo) {
+        this.springProdutoRepository.deleteById(codigo);
+    }
 }

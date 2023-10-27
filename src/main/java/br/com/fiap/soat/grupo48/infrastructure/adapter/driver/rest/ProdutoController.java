@@ -34,4 +34,10 @@ public class ProdutoController {
     void atualizarProduto(@PathVariable UUID codigo, @RequestBody Produto produto) {
         this.produtoServicePort.atualizarProduto(codigo,produto);
     }
+
+    @DeleteMapping(value = "{codigo}")
+    void excluirProduto(@PathVariable UUID codigo) {
+        this.produtoServicePort.excluirProduto(codigo);
+
+    }
 }
