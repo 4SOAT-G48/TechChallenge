@@ -11,7 +11,7 @@ public interface ProdutoRepositoryPort {
 
     Produto buscarPeloCodigo(UUID codigo);
 
-    void salvar(Produto produto);
+    Produto salvar(Produto produto);
 
     void excluir(UUID codigo);
 }

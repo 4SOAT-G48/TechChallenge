@@ -1,6 +1,5 @@
 package br.com.fiap.soat.grupo48.application.produto.port.api;
 
-import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 
 import java.util.List;
@@ -11,9 +10,9 @@ public interface ProdutoServicePort {
 
     Produto buscarPeloCodigo(UUID codigo);
 
-    void criarProduto(Produto produto);
+    Produto criarProduto(Produto produto);
 
-    void atualizarProduto(UUID codigo, Produto produto);
+    Produto atualizarProduto(UUID codigo, Produto produto);
 
     void excluirProduto(UUID codigo);
 }

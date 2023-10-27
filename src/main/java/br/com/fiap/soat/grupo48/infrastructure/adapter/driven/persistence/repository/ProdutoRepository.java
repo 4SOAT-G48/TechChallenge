@@ -38,7 +38,7 @@ public class ProdutoRepository implements ProdutoRepositoryPort {
     }
 
     @Override
-    public void salvar(Produto produto) {
+    public Produto salvar(Produto produto) {
         ProdutoEntity produtoEntity;
         if(Objects.isNull(produto.getCodigo())) {
             produtoEntity = new ProdutoEntity(produto);
@@ -47,7 +47,7 @@ public class ProdutoRepository implements ProdutoRepositoryPort {
             produtoEntity.atualizar(produto);
         }
 
-        this.springProdutoRepository.save(produtoEntity);
+        return this.springProdutoRepository.save(produtoEntity).toProduto();
     }
 
     @Override

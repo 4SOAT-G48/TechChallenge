@@ -28,16 +28,18 @@ public class ManutecaoProdutoUsecaseImpl implements ProdutoServicePort {
     }
 
     @Override
-    public void criarProduto(Produto produto) {
-        this.produtoRepository.salvar(produto);
+    public Produto criarProduto(Produto produto) {
+        return this.produtoRepository.salvar(produto);
     }
 
     @Override
-    public void atualizarProduto(UUID codigo, Produto produto) {
+    public Produto atualizarProduto(UUID codigo, Produto produto) {
         Produto produtoAtu = this.produtoRepository.buscarPeloCodigo(codigo);
         if (!Objects.isNull(produtoAtu)) {
             produto.setCodigo(codigo);
-            this.produtoRepository.salvar(produto);
+            return this.produtoRepository.salvar(produto);
+        } else {
+            return null;
         }
     }
 
