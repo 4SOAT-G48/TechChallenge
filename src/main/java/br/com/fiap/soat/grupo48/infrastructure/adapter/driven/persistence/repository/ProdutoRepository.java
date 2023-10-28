@@ -11,6 +11,12 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Implementação de classe para manutenção do produto.
+ *
+ * @author andrelaus
+ *
+ */
 @Component
 public class ProdutoRepository implements ProdutoRepositoryPort {
 
