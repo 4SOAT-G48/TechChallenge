@@ -6,6 +6,9 @@ import br.com.fiap.soat.grupo48.application.produto.port.spi.ProdutoPedidoReposi
 import br.com.fiap.soat.grupo48.application.produto.port.spi.ProdutoRepositoryPort;
 import br.com.fiap.soat.grupo48.application.produto.usecase.ManutecaoProdutoUsecaseImpl;
 import br.com.fiap.soat.grupo48.application.produto.usecase.ProdutoPedidoUseCaseImpl;
+import br.com.fiap.soat.grupo48.application.cliente.port.api.ClientePort;
+import br.com.fiap.soat.grupo48.application.cliente.port.spi.ClienteRepositoryPort;
+import br.com.fiap.soat.grupo48.application.cliente.usecase.ClienteUsecaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,5 +23,10 @@ public class BeanConfiguration {
     @Bean
     ProdutoPedidoEmAndamentoPort produtoPedidoUseCase(ProdutoPedidoRepositoryPort produtoPedidoRepositoryPort) {
         return new ProdutoPedidoUseCaseImpl(produtoPedidoRepositoryPort);
+    }
+
+    @Bean
+    ClientePort clienteUseCase(ClienteRepositoryPort clienteRepositoryPort) {
+        return new ClienteUsecaseImpl(clienteRepositoryPort);
     }
 }
