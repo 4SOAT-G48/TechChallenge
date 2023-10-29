@@ -25,6 +25,7 @@ public class ProdutoEntity {
     public ProdutoEntity() {
     }
 
+
     public ProdutoEntity(Produto produto) {
         this.nome = produto.getNome();
         this.categoria = produto.getCategoria();
