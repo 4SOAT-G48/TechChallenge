@@ -57,12 +57,12 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Produto> criarProduto(@RequestBody Produto produto) {
+    public ResponseEntity<Produto> createProduto(@RequestBody Produto produto) {
         Produto produtoSave = this.produtoServicePort.criarProduto(produto);
         return new ResponseEntity<>(produtoSave, HttpStatus.CREATED);
     }
     @PutMapping(value = "/{codigo}")
-    public ResponseEntity<Produto> atualizarProduto(@PathVariable UUID codigo, @RequestBody Produto produto) {
+    public ResponseEntity<Produto> updateProduto(@PathVariable UUID codigo, @RequestBody Produto produto) {
         if (Objects.isNull(this.produtoServicePort.buscarPeloCodigo(codigo))) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -71,7 +71,7 @@ public class ProdutoController {
     }
 
     @DeleteMapping(value = "{codigo}")
-    public ResponseEntity<Void> excluirProduto(@PathVariable UUID codigo) {
+    public ResponseEntity<Void> deleteProduto(@PathVariable UUID codigo) {
         if (Objects.isNull(this.produtoServicePort.buscarPeloCodigo(codigo))) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
