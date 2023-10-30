@@ -1,5 +1,6 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
 
+import br.com.fiap.soat.grupo48.application.produto.dto.ProdutoDto;
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPedidoEmAndamentoPort;
@@ -33,11 +34,11 @@ public class ProdutoPedidoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produtos encontrados para a categoria",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Produto.class)) }),
+                            schema = @Schema(implementation = ProdutoDto.class)) }),
     })
     @GetMapping(value = "/{categoria}")
-    ResponseEntity<List<Produto>> getPorCategoria(@PathVariable Categoria categoria) {
-        List<Produto> produtos = this.produtoPedidoEmAndamentoPort.buscarProdutosPorCategoria(categoria);
+    ResponseEntity<List<ProdutoDto>> getPorCategoria(@PathVariable Categoria categoria) {
+        List<ProdutoDto> produtos = this.produtoPedidoEmAndamentoPort.buscarProdutosPorCategoria(categoria);
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
@@ -45,11 +46,11 @@ public class ProdutoPedidoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produtos  disponíveis encontrados para a categoria",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Produto.class)) }),
+                            schema = @Schema(implementation = ProdutoDto.class)) }),
     })
     @GetMapping("/disponiveis/{categoria}")
-    ResponseEntity<List<Produto>> getPorCategoriaDisponivel(@PathVariable Categoria categoria) {
-        List<Produto> produtos = this.produtoPedidoEmAndamentoPort.buscarProdutosDiponiveisPorCategoria(categoria);
+    ResponseEntity<List<ProdutoDto>> getPorCategoriaDisponivel(@PathVariable Categoria categoria) {
+        List<ProdutoDto> produtos = this.produtoPedidoEmAndamentoPort.buscarProdutosDiponiveisPorCategoria(categoria);
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 }
