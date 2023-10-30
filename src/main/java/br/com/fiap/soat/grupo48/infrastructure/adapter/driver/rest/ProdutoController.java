@@ -1,6 +1,6 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
 
-import br.com.fiap.soat.grupo48.application.produto.model.Produto;
+import br.com.fiap.soat.grupo48.application.produto.dto.ProdutoDto;
 import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,11 +30,11 @@ public class ProdutoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produtos encontrados",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Produto.class)) }),
+                            schema = @Schema(implementation = ProdutoDto.class)) }),
              })
     @GetMapping
-    public ResponseEntity<List<Produto>> getProdutos() {
-        List<Produto> produtos = this.produtoServicePort.buscarProdutos();
+    public ResponseEntity<List<ProdutoDto>> getProdutos() {
+        List<ProdutoDto> produtos = this.produtoServicePort.buscarProdutos();
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
@@ -42,14 +42,14 @@ public class ProdutoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produto encontrado",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Produto.class)) }),
+                            schema = @Schema(implementation = ProdutoDto.class)) }),
             @ApiResponse(responseCode = "400", description = "Id inválido",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Produto não encontrado",
                     content = @Content) })
     @GetMapping(value = "/{codigo}")
-    public ResponseEntity<Produto> getProduto(@PathVariable UUID codigo) {
-        Produto produto = this.produtoServicePort.buscarPeloCodigo(codigo);
+    public ResponseEntity<ProdutoDto> getProduto(@PathVariable UUID codigo) {
+        ProdutoDto produto = this.produtoServicePort.buscarPeloCodigo(codigo);
         if (Objects.isNull(produto)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -57,21 +57,21 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public ResponseEntity<Produto> criarProduto(@RequestBody Produto produto) {
-        Produto produtoSave = this.produtoServicePort.criarProduto(produto);
+    public ResponseEntity<ProdutoDto> createProduto(@RequestBody ProdutoDto produto) {
+        ProdutoDto produtoSave = this.produtoServicePort.criarProduto(produto);
         return new ResponseEntity<>(produtoSave, HttpStatus.CREATED);
     }
     @PutMapping(value = "/{codigo}")
-    public ResponseEntity<Produto> atualizarProduto(@PathVariable UUID codigo, @RequestBody Produto produto) {
+    public ResponseEntity<ProdutoDto> updateProduto(@PathVariable UUID codigo, @RequestBody ProdutoDto produto) {
         if (Objects.isNull(this.produtoServicePort.buscarPeloCodigo(codigo))) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        Produto produtoAtualizado = this.produtoServicePort.atualizarProduto(codigo,produto);
+        ProdutoDto produtoAtualizado = this.produtoServicePort.atualizarProduto(codigo,produto);
         return new ResponseEntity<>(produtoAtualizado, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "{codigo}")
-    public ResponseEntity<Void> excluirProduto(@PathVariable UUID codigo) {
+    public ResponseEntity<Void> deleteProduto(@PathVariable UUID codigo) {
         if (Objects.isNull(this.produtoServicePort.buscarPeloCodigo(codigo))) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

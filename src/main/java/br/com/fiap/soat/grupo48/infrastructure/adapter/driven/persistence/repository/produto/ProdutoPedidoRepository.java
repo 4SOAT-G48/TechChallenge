@@ -1,4 +1,4 @@
-package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repository;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repository.produto;
 
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;

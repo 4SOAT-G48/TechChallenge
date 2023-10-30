@@ -1,5 +1,6 @@
 package br.com.fiap.soat.grupo48.application.produto.usecase;
 
+import br.com.fiap.soat.grupo48.application.produto.dto.ProdutoDto;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPort;
 import br.com.fiap.soat.grupo48.application.produto.port.spi.ProdutoRepositoryPort;
@@ -7,6 +8,7 @@ import br.com.fiap.soat.grupo48.application.produto.port.spi.ProdutoRepositoryPo
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class ManutecaoProdutoUsecaseImpl implements ProdutoPort {
 
@@ -17,27 +19,29 @@ public class ManutecaoProdutoUsecaseImpl implements ProdutoPort {
     }
 
     @Override
-    public List<Produto> buscarProdutos() {
+    public List<ProdutoDto> buscarProdutos() {
         List<Produto> produtos = this.produtoRepository.buscarTodos();
-        return produtos;
+        List<ProdutoDto> produtoDTOS = produtos.stream().map(Produto::toProdutoDto).collect(Collectors.toList());
+        return produtoDTOS;
     }
 
     @Override
-    public Produto buscarPeloCodigo(UUID codigo) {
-        return this.produtoRepository.buscarPeloCodigo(codigo);
+    public ProdutoDto buscarPeloCodigo(UUID codigo) {
+        return this.produtoRepository.buscarPeloCodigo(codigo).toProdutoDto();
     }
 
     @Override
-    public Produto criarProduto(Produto produto) {
-        return this.produtoRepository.salvar(produto);
+    public ProdutoDto criarProduto(ProdutoDto produtoDto) {
+        Produto produto = new Produto(produtoDto);
+        return this.produtoRepository.salvar(produto).toProdutoDto();
     }
 
     @Override
-    public Produto atualizarProduto(UUID codigo, Produto produto) {
+    public ProdutoDto atualizarProduto(UUID codigo, ProdutoDto produtoDto) {
         Produto produtoAtu = this.produtoRepository.buscarPeloCodigo(codigo);
         if (!Objects.isNull(produtoAtu)) {
-            produto.setCodigo(codigo);
-            return this.produtoRepository.salvar(produto);
+            produtoAtu.atualiza(produtoDto);
+            return this.produtoRepository.salvar(produtoAtu).toProdutoDto();
         } else {
             return null;
         }
