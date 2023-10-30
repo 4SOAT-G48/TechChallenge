@@ -7,13 +7,13 @@ Tanto para executar como para desenvolver são necessários os seguintes itens:
 
 1. Instalar o docker;
 2. Instalar o docker-compose;
-3. Intalar o git.
+3. Instalar o git.
 
 ## Executar aplicação via docker compose
 
-1. clonar o projeto git; 
-2. via terminal entrar na pasta do projeto;
-3. executar o comando;
+1. Clonar o projeto git; 
+2. Via terminal entrar na pasta do projeto;
+3. Executar o comando;
     ``` sh
     docker-compose up --build
     ```
