@@ -24,6 +24,9 @@ public class PedidoItemEntity {
 
     private String observacao;
 
+    public PedidoItemEntity() {
+    }
+
     public PedidoItemEntity(PedidoItem pedidoItem) {
         this.atualizar(pedidoItem);
     }

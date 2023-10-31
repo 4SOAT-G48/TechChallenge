@@ -1,11 +1,15 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repository.pedido;
 
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
+import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import br.com.fiap.soat.grupo48.application.pedido.port.spi.PedidoRepositoryPort;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.PedidoEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class PedidoRepository implements PedidoRepositoryPort {
@@ -27,5 +31,33 @@ public class PedidoRepository implements PedidoRepositoryPort {
         }
 
         return this.springPedidoRepository.save(pedidoEntity).toPedido();
+    }
+
+    @Override
+    public Pedido atualizarSituacao(UUID codigo, SituacaoPedido situacao) {
+        Optional<PedidoEntity> byId = this.springPedidoRepository.findById(codigo);
+        if (byId.isPresent()) {
+            PedidoEntity pedidoEntity = byId.get();
+            pedidoEntity.setSituacao(situacao);
+            return this.springPedidoRepository.save(pedidoEntity).toPedido();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<Pedido> buscaPedidosPorSituacoes(List<SituacaoPedido> situacoes) {
+        return null;
+    }
+
+    @Override
+    public SituacaoPedido buscaSituacaoPedido(UUID codigo) {
+        Optional<PedidoEntity> byId = this.springPedidoRepository.findById(codigo);
+        if (byId.isPresent()) {
+            PedidoEntity pedidoEntity = byId.get();
+            return pedidoEntity.getSituacao();
+        } else {
+            return null;
+        }
     }
 }
