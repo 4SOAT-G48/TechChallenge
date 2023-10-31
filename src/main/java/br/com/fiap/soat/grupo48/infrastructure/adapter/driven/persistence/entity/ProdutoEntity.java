@@ -35,17 +35,8 @@ public class ProdutoEntity {
 
 
     public ProdutoEntity(Produto produto) {
-        this.nome = produto.getNome();
-        this.categoria = produto.getCategoria();
-        this.preco = produto.getPreco();
-        this.descricao = produto.getDescricao();
-        this.situacao = produto.getSituacao();
-        this.images = new ArrayList<>();
-        for (Imagem imagem : produto.getImagens()) {
-            String url = imagem.url();
-            this.images.add(new ImageEntity(url));
-        }
-
+        this.codigo = produto.getCodigo();
+        this.atualizar(produto);
     }
 
     public Produto toProduto() {

@@ -1,18 +1,19 @@
 package br.com.fiap.soat.grupo48.application.pedido.dto;
 
 import br.com.fiap.soat.grupo48.application.produto.dto.ProdutoDto;
-import br.com.fiap.soat.grupo48.application.produto.model.Produto;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.UUID;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class ItemPedidoDto {
+@Getter
+@Setter
+public class PedidoItemDto {
 
+    private UUID codigo;
     private ProdutoDto produto;
 
     private Integer quantidade;

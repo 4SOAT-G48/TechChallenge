@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,4 +25,10 @@ public class ProdutoDto {
     private SituacaoProduto situacao;
     private List<String> imagens;
 
+    public List<String> getImagens() {
+        if (imagens == null) {
+            imagens = new ArrayList<>();
+        }
+        return imagens;
+    }
 }

@@ -34,7 +34,7 @@ public class BeanConfiguration {
     }
 
     @Bean
-    PedidoEmAndamentoPort pedidoUseCase(PedidoRepositoryPort pedidoRepositoryPort) {
-        return new PedidoEmAndamentoUseCaseImpl(pedidoRepositoryPort);
+    PedidoEmAndamentoPort pedidoUseCase(PedidoRepositoryPort pedidoRepositoryPort, ClienteRepositoryPort clienteRepositoryPort, ProdutoRepositoryPort produtoRepositoryPort) {
+        return new PedidoEmAndamentoUseCaseImpl(pedidoRepositoryPort, clienteRepositoryPort, produtoRepositoryPort);
     }
 }

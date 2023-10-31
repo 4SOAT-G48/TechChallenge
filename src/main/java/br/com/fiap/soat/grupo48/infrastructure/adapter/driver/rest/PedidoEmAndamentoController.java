@@ -5,6 +5,7 @@ import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoEmAndamentoPor
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class PedidoEmAndamentoController {
     }
 
     @PostMapping
-    public ResponseEntity<PedidoDto> montagemPedido(PedidoDto pedidoDto) {
+    public ResponseEntity<PedidoDto> montagemPedido(@RequestBody PedidoDto pedidoDto) {
         if(Objects.isNull(pedidoDto)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
