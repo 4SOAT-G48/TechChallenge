@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  db:
+    container_name: tc_soat4_g48_db
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    env_file: .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - tc_soat4_g48_network
+
+  spring:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tc_soat4_g48_app
+    ports:
+      - "8081:8081"
+    volumes:
+      - volume-log:/logs
+    depends_on:
+      - db
+    env_file: .env
+    environment:
+      - LOGGING_FILE_NAME=/logs/grupo48.log
+    networks:
+      - tc_soat4_g48_network
+
+volumes:
+  volume-log:
+  pgdata:
+networks:
+  tc_soat4_g48_network:
+    driver: bridge
