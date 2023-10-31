@@ -29,6 +29,9 @@ public class PedidoEntity {
 
     private String numero;
 
+    public PedidoEntity() {
+    }
+
     public PedidoEntity(Pedido pedido) {
         this.atualizar(pedido);
     }
@@ -51,5 +54,13 @@ public class PedidoEntity {
     public Pedido toPedido() {
         return new Pedido(this.codigo,this.cliente.toCliente(),this.situacao,this.numero,
                 this.itens.stream().map(PedidoItemEntity::toPedidoItem).collect(Collectors.toList()));
+    }
+
+    public void setSituacao(SituacaoPedido situacao) {
+        this.situacao = situacao;
+    }
+
+    public SituacaoPedido getSituacao() {
+        return situacao;
     }
 }
