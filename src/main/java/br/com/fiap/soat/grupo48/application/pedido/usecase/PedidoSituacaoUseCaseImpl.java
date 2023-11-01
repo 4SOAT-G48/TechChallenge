@@ -2,11 +2,13 @@ package br.com.fiap.soat.grupo48.application.pedido.usecase;
 
 import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoDto;
 import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoSituacaoDto;
+import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoSituacaoPort;
 import br.com.fiap.soat.grupo48.application.pedido.port.spi.PedidoRepositoryPort;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PedidoSituacaoUseCaseImpl implements PedidoSituacaoPort {
 
@@ -28,8 +30,8 @@ public class PedidoSituacaoUseCaseImpl implements PedidoSituacaoPort {
 
     @Override
     public List<PedidoDto> buscarPedidosPorSituacao(List<SituacaoPedido> situacoes) {
-        //return this.pedidoRepositoryPort.buscaPedidosPorSituacoes(situacoes);
-        return null;
+        List<Pedido> pedidos = this.pedidoRepositoryPort.buscaPedidosPorSituacoes(situacoes);
+        return pedidos.stream().map(Pedido::toPedidoDto).collect(Collectors.toList());
     }
 
 }

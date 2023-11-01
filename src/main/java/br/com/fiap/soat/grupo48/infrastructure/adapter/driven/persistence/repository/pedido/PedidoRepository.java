@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class PedidoRepository implements PedidoRepositoryPort {
@@ -47,7 +48,8 @@ public class PedidoRepository implements PedidoRepositoryPort {
 
     @Override
     public List<Pedido> buscaPedidosPorSituacoes(List<SituacaoPedido> situacoes) {
-        return null;
+        List<PedidoEntity> bySituacaoIn = this.springPedidoRepository.findBySituacaoIn(situacoes);
+        return bySituacaoIn.stream().map(PedidoEntity::toPedido).collect(Collectors.toList());
     }
 
     @Override
