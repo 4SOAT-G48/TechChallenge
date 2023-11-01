@@ -2,11 +2,13 @@ package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
 
 import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoDto;
 import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoSituacaoDto;
+import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoSituacaoPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -30,6 +32,12 @@ public class PedidoSituacaoController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PedidoDto>> getPedidosPorSituacao(@RequestParam List<SituacaoPedido> situacoes) {
+        List<PedidoDto> pedidoDtos = this.pedidoSituacaoPort.buscarPedidosPorSituacao(situacoes);
+        return new ResponseEntity<>(pedidoDtos, HttpStatus.OK);
     }
 
 }
