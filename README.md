@@ -15,7 +15,7 @@ Tanto para executar como para desenvolver são necessários os seguintes itens:
 2. Via terminal entrar na pasta do projeto;
 3. Executar o comando;
     ``` sh
-    docker-compose up --build
+    docker-compose up --build -d
     ```
 
 ## Desenvolvimento

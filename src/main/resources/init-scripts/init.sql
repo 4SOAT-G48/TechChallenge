@@ -87,6 +87,21 @@ INSERT INTO produtos (nome, descricao, preco, situacao, categoria) VALUES
 ('Milkshake Oreo', 'Milkshake cremoso com biscoitos Oreo', 15.0, 'DISPONIVEL', 'SOBREMESA'),
 ('Milkshake Café', 'Milkshake cremoso sabor café', 13.0, 'DISPONIVEL', 'SOBREMESA'),
 ('Torta de Limão', 'Fatia de torta com recheio de limão', 12.0, 'DISPONIVEL', 'SOBREMESA'),
-('Sorvete', 'Pote de sorvete sabor baunilha 150g', 10.0, 'DISPONIVEL', 'SOBREMESA')
+('Sorvete', 'Pote de sorvete sabor baunilha 150g', 10.0, 'DISPONIVEL', 'SOBREMESA'),
+('Pudim de Leite', 'Pudim de leite condensado', 9.0, 'DISPONIVEL', 'SOBREMESA'),
+('Brigadeiro', 'Porção de brigadeiros', 8.0, 'DISPONIVEL', 'SOBREMESA'),
+('Cheesecake de Morango', 'Fatia de cheesecake com calda de morango', 15.0, 'DISPONIVEL', 'SOBREMESA'),
+('Sorvete de Chocolate', 'Pote de sorvete sabor chocolate 150g', 10.0, 'DISPONIVEL', 'SOBREMESA'),
+('Torta de Maçã', 'Fatia de torta de maçã com canela', 12.0, 'DISPONIVEL', 'SOBREMESA'),
+('Mousse de Maracujá', 'Mousse refrescante de maracujá', 9.0, 'DISPONIVEL', 'SOBREMESA'),
+('Pavê de Chocolate', 'Porção de pavê de chocolate', 11.0, 'DISPONIVEL', 'SOBREMESA'),
+('Waffle com Sorvete', 'Waffle quente com sorvete e calda de chocolate', 16.0, 'DISPONIVEL', 'SOBREMESA'),
+('Bolo de Cenoura', 'Fatia de bolo de cenoura com cobertura de chocolate', 10.0, 'DISPONIVEL', 'SOBREMESA'),
+('Churros', 'Porção de churros com doce de leite', 7.0, 'DISPONIVEL', 'SOBREMESA'),
+('Sorvete de Morango', 'Pote de sorvete sabor morango 150g', 10.0, 'DISPONIVEL', 'SOBREMESA'),
+('Mousse de Chocolate', 'Mousse cremoso de chocolate', 9.0, 'DISPONIVEL', 'SOBREMESA'),
+('Banana Split', 'Banana cortada com sorvete, chantilly e coberturas', 14.0, 'DISPONIVEL', 'SOBREMESA'),
+('Creme Brulée', 'Creme brulée com açúcar queimado', 12.0, 'DISPONIVEL', 'SOBREMESA'),
+('Bolo de Chocolate', 'Fatia de bolo de chocolate com cobertura de ganache', 11.0, 'DISPONIVEL', 'SOBREMESA')
 
 ;

@@ -2,14 +2,25 @@ package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
 
 import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoDto;
 import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoSituacaoDto;
+import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoSituacaoPort;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+@Tag(name = "Acompanhamento da situação do pedido",
+        description = "Endpoints para atualizar a situação do pedido a medida que vai avançando em cada fase e " +
+                " para acompanhar os pedidos por situação")
 @RestController
 @RequestMapping("api/pedidosituacao")
 public class PedidoSituacaoController {
@@ -20,6 +31,11 @@ public class PedidoSituacaoController {
         this.pedidoSituacaoPort = pedidoSituacaoPort;
     }
 
+    @Operation(summary = "Atualiza situação do pedido")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pedido Atualizado", content = { @Content }),
+            @ApiResponse(responseCode = "404", description = "Pedido não Encontrado", content = { @Content }),
+    })
     @PutMapping(value = "/{codigo}")
     public ResponseEntity<Void> updateSituacaoPedido(@PathVariable UUID codigo, @RequestBody PedidoSituacaoDto pedidoSituacao) {
         if (Objects.nonNull(codigo)) {
@@ -30,6 +46,18 @@ public class PedidoSituacaoController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @Operation(summary = "Recupera a lista de pedidos por situacao")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Produtos encontrados",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = PedidoDto.class)) }),
+    })
+    @GetMapping
+    public ResponseEntity<List<PedidoDto>> getPedidosPorSituacao(@RequestParam List<SituacaoPedido> situacoes) {
+        List<PedidoDto> pedidoDtos = this.pedidoSituacaoPort.buscarPedidosPorSituacao(situacoes);
+        return new ResponseEntity<>(pedidoDtos, HttpStatus.OK);
     }
 
 }
