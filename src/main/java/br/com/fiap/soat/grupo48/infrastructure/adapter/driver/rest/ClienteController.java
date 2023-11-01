@@ -39,6 +39,11 @@ public class ClienteController {
         }
     }
 
+    @Operation(summary = "Adiciona novo usuário")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário adicionado", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))}),
+            @ApiResponse(responseCode = "400", description = "Usuário duplicado", content = { @Content }),
+    })
     @PostMapping
     public ResponseEntity<Cliente> criarCliente(@RequestBody Cliente cliente) {
         Cliente buscarCliente = this.clientePort.buscarPeloCpf(cliente.getCpf());

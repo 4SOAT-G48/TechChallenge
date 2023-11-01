@@ -33,8 +33,8 @@ public class ProdutoPedidoController {
     @Operation(summary = "Recupera lista de produtos por categoria")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produtos encontrados para a categoria",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ProdutoDto.class)) }),
+                        content = { @Content(mediaType = "application/json",
+                        schema = @Schema(implementation = ProdutoDto.class)) }),
     })
     @GetMapping(value = "/{categoria}")
     ResponseEntity<List<ProdutoDto>> getPorCategoria(@PathVariable Categoria categoria) {
@@ -46,7 +46,7 @@ public class ProdutoPedidoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produtos  disponíveis encontrados para a categoria",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ProdutoDto.class)) }),
+                    schema = @Schema(implementation = ProdutoDto.class)) }),
     })
     @GetMapping("/disponiveis/{categoria}")
     ResponseEntity<List<ProdutoDto>> getPorCategoriaDisponivel(@PathVariable Categoria categoria) {
