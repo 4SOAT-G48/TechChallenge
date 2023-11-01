@@ -1,7 +1,13 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
 
+import br.com.fiap.soat.grupo48.application.cliente.model.Cliente;
 import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoDto;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoEmAndamentoPort;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +27,11 @@ public class PedidoEmAndamentoController {
         this.pedidoEmAndamentoPort = pedidoEmAndamentoPort;
     }
 
+    @Operation(summary = "Cria o pedido")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pedido Criado", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PedidoEmAndamentoPort.class))}),
+            @ApiResponse(responseCode = "400", description = "Pedido inválido", content = { @Content }),
+    })
     @PostMapping
     public ResponseEntity<PedidoDto> montagemPedido(@RequestBody PedidoDto pedidoDto) {
         if(Objects.isNull(pedidoDto)) {
