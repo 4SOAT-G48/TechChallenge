@@ -1,6 +1,8 @@
 # TechChallenge
 Tech Challenge Fiap SOAT 4 - grupo 48
 
+Para demais documentações acessar a [wiki deste projeto](https://github.com/4SOAT-G48/TechChallenge/wiki)
+
 ## Pré requisitos
 
 Tanto para executar como para desenvolver são necessários os seguintes itens:
