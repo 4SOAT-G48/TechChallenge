@@ -12,8 +12,17 @@ Tanto para executar como para desenvolver são necessários os seguintes itens:
 ## Executar aplicação via docker compose
 
 1. Clonar o projeto git; 
-2. Via terminal entrar na pasta do projeto;
-3. Executar o comando;
+2. Criar o arquivo **.env** no mesmo diretório que o arquivo **docker-compose.yml** com o seguinte conteúdo:
+   ```
+   POSTGRES_DB=NOME_DATABASE
+   POSTGRES_USER=NOME_USUARIO_ACESSO
+   POSTGRES_PASSWORD=SENHA_ACESSO
+   SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/NOME_DATABASE
+   SPRING_DATASOURCE_USERNAME=NOME_USUARIO_ACESSO
+   SPRING_DATASOURCE_PASSWORD=SENHA_ACESSO
+   ```
+3. Via terminal entrar na pasta do projeto;
+4. Executar o comando;
     ``` sh
     docker-compose up --build -d
     ```
