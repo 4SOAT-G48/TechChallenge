@@ -2,7 +2,7 @@ package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repos
 
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
-import br.com.fiap.soat.grupo48.application.pedido.port.spi.PedidoRepositoryPort;
+import br.com.fiap.soat.grupo48.application.pedido.port.spi.IPedidoRepositoryGateway;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.PedidoEntity;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +13,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
-public class PedidoRepository implements PedidoRepositoryPort {
+public class PedidoRepositoryGateway implements IPedidoRepositoryGateway {
 
     private final SpringPedidoRepository springPedidoRepository;
 
-    public PedidoRepository(SpringPedidoRepository springPedidoRepository) {
+    public PedidoRepositoryGateway(SpringPedidoRepository springPedidoRepository) {
         this.springPedidoRepository = springPedidoRepository;
     }
 

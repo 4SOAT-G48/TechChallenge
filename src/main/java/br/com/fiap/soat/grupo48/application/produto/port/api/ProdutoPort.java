@@ -1,18 +1,18 @@
 package br.com.fiap.soat.grupo48.application.produto.port.api;
 
-import br.com.fiap.soat.grupo48.application.produto.dto.ProdutoDto;
+import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface ProdutoPort {
-    List<ProdutoDto> buscarProdutos();
+    List<Produto> buscarProdutos();
 
-    ProdutoDto buscarPeloCodigo(UUID codigo);
+    Produto buscarPeloCodigo(UUID codigo);
 
-    ProdutoDto criarProduto(ProdutoDto produto);
+    Produto criarProduto(Produto produto);
 
-    ProdutoDto atualizarProduto(UUID codigo, ProdutoDto produto);
+    Produto atualizarProduto(UUID codigo, Produto produto);
 
     void excluirProduto(UUID codigo);
 }

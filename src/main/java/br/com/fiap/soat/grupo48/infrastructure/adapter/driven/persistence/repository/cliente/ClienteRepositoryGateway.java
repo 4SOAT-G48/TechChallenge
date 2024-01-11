@@ -1,15 +1,15 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repository.cliente;
 
 import br.com.fiap.soat.grupo48.application.cliente.model.Cliente;
-import br.com.fiap.soat.grupo48.application.cliente.port.spi.ClienteRepositoryPort;
+import br.com.fiap.soat.grupo48.application.cliente.port.spi.IClienteRepositoryGateway;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.ClienteEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClienteRepository implements ClienteRepositoryPort {
+public class ClienteRepositoryGateway implements IClienteRepositoryGateway {
     private final SpringClienteRepository springClienteRepository;
 
-    public ClienteRepository(SpringClienteRepository springClienteRepository) {
+    public ClienteRepositoryGateway(SpringClienteRepository springClienteRepository) {
         this.springClienteRepository = springClienteRepository;
     }
 

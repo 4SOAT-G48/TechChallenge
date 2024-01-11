@@ -1,7 +1,7 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repository.produto;
 
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
-import br.com.fiap.soat.grupo48.application.produto.port.spi.ProdutoRepositoryPort;
+import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoRepositoryGateway;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.ProdutoEntity;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
  *
  */
 @Component
-public class ProdutoRepository implements ProdutoRepositoryPort {
+public class ProdutoRepositoryGateway implements IProdutoRepositoryGateway {
 
     private final SpringProdutoRepository springProdutoRepository;
 
-    public ProdutoRepository(SpringProdutoRepository springProdutoRepository) {
+    public ProdutoRepositoryGateway(SpringProdutoRepository springProdutoRepository) {
         this.springProdutoRepository = springProdutoRepository;
     }
 

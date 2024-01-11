@@ -3,7 +3,7 @@ package br.com.fiap.soat.grupo48.application.produto.usecase;
 import br.com.fiap.soat.grupo48.application.produto.dto.ProdutoDto;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPort;
-import br.com.fiap.soat.grupo48.application.produto.port.spi.ProdutoRepositoryPort;
+import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoRepositoryGateway;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 
 public class ManutecaoProdutoUsecaseImpl implements ProdutoPort {
 
-    private final ProdutoRepositoryPort produtoRepository;
+    private final IProdutoRepositoryGateway produtoRepository;
 
-    public ManutecaoProdutoUsecaseImpl(ProdutoRepositoryPort produtoRepository) {
+    public ManutecaoProdutoUsecaseImpl(IProdutoRepositoryGateway produtoRepository) {
         this.produtoRepository = produtoRepository;
     }
 
