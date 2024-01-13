@@ -1,16 +1,17 @@
-package br.com.fiap.soat.grupo48.application.pedido.model;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
 
 import br.com.fiap.soat.grupo48.application.cliente.model.Cliente;
 import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Pedido {
+public class PedidoResponse {
     @Getter
     @Setter
     private UUID codigo;
@@ -21,7 +22,7 @@ public class Pedido {
 
     @Getter
     @Setter
-    private SituacaoPedido situacao;
+    private SituacaoPedidoResponse situacao;
 
     @Getter
     @Setter
@@ -29,6 +30,6 @@ public class Pedido {
 
     @Getter
     @Setter
-    private List<PedidoItem> itens;
+    private List<PedidoItemResponse> itens;
 
 }

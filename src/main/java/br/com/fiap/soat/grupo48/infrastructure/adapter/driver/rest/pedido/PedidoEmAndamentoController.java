@@ -1,7 +1,6 @@
-package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
 
-import br.com.fiap.soat.grupo48.application.cliente.model.Cliente;
-import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoDto;
+import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoEmAndamentoPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -24,9 +23,11 @@ import java.util.Objects;
 public class PedidoEmAndamentoController {
 
     private final PedidoEmAndamentoPort pedidoEmAndamentoPort;
+    private final PedidoEmAndamentoDTOMapper pedidoEmAndamentoDTOMapper;
 
-    public PedidoEmAndamentoController(PedidoEmAndamentoPort pedidoEmAndamentoPort) {
+    public PedidoEmAndamentoController(PedidoEmAndamentoPort pedidoEmAndamentoPort, PedidoEmAndamentoDTOMapper pedidoEmAndamentoDTOMapper) {
         this.pedidoEmAndamentoPort = pedidoEmAndamentoPort;
+        this.pedidoEmAndamentoDTOMapper = pedidoEmAndamentoDTOMapper;
     }
 
     @Operation(summary = "Cria o pedido")
@@ -35,12 +36,13 @@ public class PedidoEmAndamentoController {
             @ApiResponse(responseCode = "400", description = "Pedido inválido", content = { @Content }),
     })
     @PostMapping
-    public ResponseEntity<PedidoDto> montagemPedido(@RequestBody PedidoDto pedidoDto) {
-        if(Objects.isNull(pedidoDto)) {
+    public ResponseEntity<Pedido> montagemPedido(@RequestBody PedidoRequest request) {
+        if(Objects.isNull(request)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        PedidoDto pedido = this.pedidoEmAndamentoPort.montaPedido(pedidoDto);
+        Pedido pedido = this.pedidoEmAndamentoDTOMapper.toPedido(request);
+        pedido = this.pedidoEmAndamentoPort.montaPedido(pedido, request.getCpfCliente());
         return new ResponseEntity<>(pedido, HttpStatus.CREATED);
     }
 }

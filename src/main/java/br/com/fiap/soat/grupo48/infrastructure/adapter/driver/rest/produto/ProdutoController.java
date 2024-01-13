@@ -34,46 +34,50 @@ public class ProdutoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produtos encontrados",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Produto.class)) }),
+                            schema = @Schema(implementation = ProdutoResponse.class)) }),
              })
     @GetMapping
-    public ResponseEntity<List<Produto>> getProdutos() {
+    public ResponseEntity<List<ProdutoResponse>> getProdutos() {
         List<Produto> produtos = this.produtoServicePort.buscarProdutos();
-        return new ResponseEntity<>(produtos, HttpStatus.OK);
+        List<ProdutoResponse> listResponse = this.produtoDTOMapper.toListResponse(produtos);
+        return new ResponseEntity<>(listResponse, HttpStatus.OK);
     }
 
     @Operation(summary = "Recupera um produto pelo id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produto encontrado",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Produto.class)) }),
+                            schema = @Schema(implementation = ProdutoResponse.class)) }),
             @ApiResponse(responseCode = "400", description = "Id inválido",
                     content = @Content),
             @ApiResponse(responseCode = "404", description = "Produto não encontrado",
                     content = @Content) })
     @GetMapping(value = "/{codigo}")
-    public ResponseEntity<Produto> getProduto(@PathVariable UUID codigo) {
+    public ResponseEntity<ProdutoResponse> getProduto(@PathVariable UUID codigo) {
         Produto produto = this.produtoServicePort.buscarPeloCodigo(codigo);
         if (Objects.isNull(produto)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(produto, HttpStatus.OK);
+        ProdutoResponse response = this.produtoDTOMapper.toResponse(produto);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Produto> createProduto(@RequestBody ProdutoRequest request) {
+    public ResponseEntity<ProdutoResponse> createProduto(@RequestBody ProdutoRequest request) {
         Produto produto = this.produtoDTOMapper.toProduto(request);
         Produto produtoSave = this.produtoServicePort.criarProduto(produto);
-        return new ResponseEntity<>(produtoSave, HttpStatus.CREATED);
+        ProdutoResponse response = this.produtoDTOMapper.toResponse(produtoSave);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
     @PutMapping(value = "/{codigo}")
-    public ResponseEntity<Produto> updateProduto(@PathVariable UUID codigo, @RequestBody ProdutoRequest request) {
+    public ResponseEntity<ProdutoResponse> updateProduto(@PathVariable UUID codigo, @RequestBody ProdutoRequest request) {
         if (Objects.isNull(this.produtoServicePort.buscarPeloCodigo(codigo))) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Produto produto = this.produtoDTOMapper.toProduto(request);
         Produto produtoAtualizado = this.produtoServicePort.atualizarProduto(codigo,produto);
-        return new ResponseEntity<>(produtoAtualizado, HttpStatus.OK);
+        ProdutoResponse response = this.produtoDTOMapper.toResponse(produtoAtualizado);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "{codigo}")

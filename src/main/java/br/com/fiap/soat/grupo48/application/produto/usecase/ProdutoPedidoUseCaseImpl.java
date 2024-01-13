@@ -1,6 +1,5 @@
 package br.com.fiap.soat.grupo48.application.produto.usecase;
 
-import br.com.fiap.soat.grupo48.application.produto.dto.ProdutoDto;
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.model.SituacaoProduto;
@@ -8,7 +7,6 @@ import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPedidoEmAnda
 import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoPedidoRepositoryGateway;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProdutoPedidoUseCaseImpl implements ProdutoPedidoEmAndamentoPort {
 
@@ -20,15 +18,15 @@ public class ProdutoPedidoUseCaseImpl implements ProdutoPedidoEmAndamentoPort {
 
 
     @Override
-    public List<ProdutoDto> buscarProdutosPorCategoria(Categoria categoria) {
+    public List<Produto> buscarProdutosPorCategoria(Categoria categoria) {
         List<Produto> produtos = this.IProdutoPedidoRepositoryGateway.buscarPorCategoria(categoria);
-        return produtos.stream().map(Produto::toProdutoDto).collect(Collectors.toList());
+        return produtos;
     }
 
     @Override
-    public List<ProdutoDto> buscarProdutosDiponiveisPorCategoria(Categoria categoria) {
+    public List<Produto> buscarProdutosDiponiveisPorCategoria(Categoria categoria) {
         //fixo por produtos disponiveis
         List<Produto> produtos = this.IProdutoPedidoRepositoryGateway.buscarPorCategoriaESituacao(categoria, SituacaoProduto.DISPONIVEL);
-        return produtos.stream().map(Produto::toProdutoDto).collect(Collectors.toList());
+        return produtos;
     }
 }

@@ -1,6 +1,6 @@
-package br.com.fiap.soat.grupo48.application.pedido.dto;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
 
-import br.com.fiap.soat.grupo48.application.produto.dto.ProdutoDto;
+import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.produto.ProdutoRequest;
 import lombok.*;
 
 import java.util.UUID;
@@ -11,10 +11,10 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Getter
 @Setter
-public class PedidoItemDto {
+public class PedidoItemRequest {
 
     private UUID codigo;
-    private ProdutoDto produto;
+    private ProdutoRequest produto;
 
     private Integer quantidade;
     private Double precoUnitario;

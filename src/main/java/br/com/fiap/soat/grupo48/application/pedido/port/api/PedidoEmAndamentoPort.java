@@ -1,16 +1,17 @@
 package br.com.fiap.soat.grupo48.application.pedido.port.api;
 
-import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoDto;
+import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 
 public interface PedidoEmAndamentoPort {
     /**
      * Faze de montagem do pedido.
      * Pode ser desde a adição do primeiro item
      * até ele escolher concluir o pedido.
-     * @param pedidoDto
+     * @param pedido
+     * @param cpfCliente
      * @return
      */
-    PedidoDto montaPedido(PedidoDto pedidoDto);
+    Pedido montaPedido(Pedido pedido, String cpfCliente);
 
     /**
      * Passa para o pagamento.
@@ -22,5 +23,5 @@ public interface PedidoEmAndamentoPort {
      * @param pedidoDto
      * @return
      */
-    PedidoDto concluiPedido(PedidoDto pedidoDto);
+    Pedido concluiPedido(Pedido pedidoDto);
 }
