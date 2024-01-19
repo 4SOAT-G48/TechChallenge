@@ -1,5 +1,6 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repository.produto;
 
+import br.com.fiap.soat.grupo48.application.commons.exception.NomeException;
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.model.SituacaoProduto;

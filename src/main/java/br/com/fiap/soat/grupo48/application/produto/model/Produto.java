@@ -1,5 +1,7 @@
 package br.com.fiap.soat.grupo48.application.produto.model;
 
+import br.com.fiap.soat.grupo48.application.commons.exception.NomeException;
+import br.com.fiap.soat.grupo48.application.commons.model.Nome;
 import br.com.fiap.soat.grupo48.application.produto.valueobject.Imagem;
 import lombok.*;
 
@@ -12,16 +14,16 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class Produto {
     @Setter private UUID codigo;
-    @Setter private String nome;
+    @Setter private Nome nome;
     @Setter private Categoria categoria;
     @Setter private Double preco;
     @Setter private String descricao;
     @Setter private SituacaoProduto situacao;
     private List<Imagem> imagens;
 
-    public Produto(UUID codigo, String nome, Categoria categoria, Double preco, String descricao, SituacaoProduto situacao, List<Imagem> imagens) {
+    public Produto(UUID codigo, String nome, Categoria categoria, Double preco, String descricao, SituacaoProduto situacao, List<Imagem> imagens) throws NomeException {
         this.codigo = codigo;
-        this.nome = nome;
+        this.nome = new Nome(nome);
         this.categoria = categoria;
         this.preco = preco;
         this.descricao = descricao;

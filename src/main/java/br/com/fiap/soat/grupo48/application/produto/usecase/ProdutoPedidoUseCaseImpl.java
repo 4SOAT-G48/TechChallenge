@@ -1,5 +1,6 @@
 package br.com.fiap.soat.grupo48.application.produto.usecase;
 
+import br.com.fiap.soat.grupo48.application.commons.exception.NomeException;
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.model.SituacaoProduto;
@@ -19,7 +20,12 @@ public class ProdutoPedidoUseCaseImpl implements ProdutoPedidoEmAndamentoPort {
 
     @Override
     public List<Produto> buscarProdutosPorCategoria(Categoria categoria) {
-        List<Produto> produtos = this.IProdutoPedidoRepositoryGateway.buscarPorCategoria(categoria);
+        List<Produto> produtos = null;
+        try {
+            produtos = this.IProdutoPedidoRepositoryGateway.buscarPorCategoria(categoria);
+        } catch (NomeException e) {
+            //throw new RuntimeException(e);
+        }
         return produtos;
     }
 
