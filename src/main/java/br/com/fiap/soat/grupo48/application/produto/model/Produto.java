@@ -1,7 +1,7 @@
 package br.com.fiap.soat.grupo48.application.produto.model;
 
 import br.com.fiap.soat.grupo48.application.commons.exception.NomeException;
-import br.com.fiap.soat.grupo48.application.commons.model.Nome;
+import br.com.fiap.soat.grupo48.application.commons.valueobject.Nome;
 import br.com.fiap.soat.grupo48.application.produto.valueobject.Imagem;
 import lombok.*;
 

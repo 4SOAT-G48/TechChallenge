@@ -1,4 +1,4 @@
-package br.com.fiap.soat.grupo48.application.commons.model;
+package br.com.fiap.soat.grupo48.application.commons.valueobject;
 
 import br.com.fiap.soat.grupo48.application.commons.exception.NomeException;
 import lombok.SneakyThrows;

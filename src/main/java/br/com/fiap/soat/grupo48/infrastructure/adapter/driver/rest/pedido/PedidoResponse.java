@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,7 +25,7 @@ public class PedidoResponse {
 
     @Getter
     @Setter
-    private String numero;
+    private String identificacao;
 
     @Getter
     @Setter

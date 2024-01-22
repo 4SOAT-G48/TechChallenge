@@ -22,11 +22,11 @@ public class PedidoRequest {
 
     @Getter
     @Setter
-    private SituacaoPedido situacao;
+    private String situacao;
 
     @Getter
     @Setter
-    private String numero;
+    private String identificacao;
 
     @Getter
     @Setter

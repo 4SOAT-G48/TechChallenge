@@ -25,7 +25,7 @@ public class Pedido {
 
     @Getter
     @Setter
-    private String numero;
+    private String identificacao;
 
     @Getter
     @Setter
