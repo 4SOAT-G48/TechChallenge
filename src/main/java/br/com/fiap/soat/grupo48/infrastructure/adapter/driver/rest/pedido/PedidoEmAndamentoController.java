@@ -1,7 +1,7 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
 
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
-import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoEmAndamentoPort;
+import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoEmAndamentoPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,17 +22,17 @@ import java.util.Objects;
 @RequestMapping("api/pedidoemandamento")
 public class PedidoEmAndamentoController {
 
-    private final PedidoEmAndamentoPort pedidoEmAndamentoPort;
+    private final IPedidoEmAndamentoPort pedidoEmAndamentoPort;
     private final PedidoEmAndamentoDTOMapper pedidoEmAndamentoDTOMapper;
 
-    public PedidoEmAndamentoController(PedidoEmAndamentoPort pedidoEmAndamentoPort, PedidoEmAndamentoDTOMapper pedidoEmAndamentoDTOMapper) {
+    public PedidoEmAndamentoController(IPedidoEmAndamentoPort pedidoEmAndamentoPort, PedidoEmAndamentoDTOMapper pedidoEmAndamentoDTOMapper) {
         this.pedidoEmAndamentoPort = pedidoEmAndamentoPort;
         this.pedidoEmAndamentoDTOMapper = pedidoEmAndamentoDTOMapper;
     }
 
     @Operation(summary = "Cria o pedido")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Pedido Criado", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = PedidoEmAndamentoPort.class))}),
+            @ApiResponse(responseCode = "200", description = "Pedido Criado", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = IPedidoEmAndamentoPort.class))}),
             @ApiResponse(responseCode = "400", description = "Pedido inválido", content = { @Content }),
     })
     @PostMapping

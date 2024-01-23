@@ -1,12 +1,12 @@
 package br.com.fiap.soat.grupo48.infrastructure.config;
 
-import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoEmAndamentoPort;
-import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoSituacaoPort;
+import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoEmAndamentoPort;
+import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoSituacaoPort;
 import br.com.fiap.soat.grupo48.application.pedido.port.spi.IPedidoRepositoryGateway;
 import br.com.fiap.soat.grupo48.application.pedido.usecase.PedidoEmAndamentoUseCaseImpl;
 import br.com.fiap.soat.grupo48.application.pedido.usecase.PedidoSituacaoUseCaseImpl;
-import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPedidoEmAndamentoPort;
-import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPort;
+import br.com.fiap.soat.grupo48.application.produto.port.api.IProdutoPedidoEmAndamentoPort;
+import br.com.fiap.soat.grupo48.application.produto.port.api.IProdutoPort;
 import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoPedidoRepositoryGateway;
 import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoRepositoryGateway;
 import br.com.fiap.soat.grupo48.application.produto.usecase.ManutecaoProdutoUsecaseImpl;
@@ -21,12 +21,12 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 
     @Bean
-    ProdutoPort manutencaoProdutoUseCase(IProdutoRepositoryGateway IProdutoRepositoryGateway) {
+    IProdutoPort manutencaoProdutoUseCase(IProdutoRepositoryGateway IProdutoRepositoryGateway) {
         return new ManutecaoProdutoUsecaseImpl(IProdutoRepositoryGateway);
     }
 
     @Bean
-    ProdutoPedidoEmAndamentoPort produtoPedidoUseCase(IProdutoPedidoRepositoryGateway IProdutoPedidoRepositoryGateway) {
+    IProdutoPedidoEmAndamentoPort produtoPedidoUseCase(IProdutoPedidoRepositoryGateway IProdutoPedidoRepositoryGateway) {
         return new ProdutoPedidoUseCaseImpl(IProdutoPedidoRepositoryGateway);
     }
 
@@ -36,12 +36,12 @@ public class BeanConfiguration {
     }
 
     @Bean
-    PedidoEmAndamentoPort pedidoUseCase(IPedidoRepositoryGateway IPedidoRepositoryGateway, IClienteRepositoryGateway IClienteRepositoryGateway, IProdutoRepositoryGateway IProdutoRepositoryGateway) {
+    IPedidoEmAndamentoPort pedidoUseCase(IPedidoRepositoryGateway IPedidoRepositoryGateway, IClienteRepositoryGateway IClienteRepositoryGateway, IProdutoRepositoryGateway IProdutoRepositoryGateway) {
         return new PedidoEmAndamentoUseCaseImpl(IPedidoRepositoryGateway, IClienteRepositoryGateway, IProdutoRepositoryGateway);
     }
 
     @Bean
-    PedidoSituacaoPort pedidoSituacaoPort(IPedidoRepositoryGateway IPedidoRepositoryGateway) {
+    IPedidoSituacaoPort pedidoSituacaoPort(IPedidoRepositoryGateway IPedidoRepositoryGateway) {
         return  new PedidoSituacaoUseCaseImpl(IPedidoRepositoryGateway);
     }
 }

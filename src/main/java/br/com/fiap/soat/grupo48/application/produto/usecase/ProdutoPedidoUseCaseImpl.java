@@ -4,12 +4,12 @@ import br.com.fiap.soat.grupo48.application.commons.exception.NomeException;
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.model.SituacaoProduto;
-import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPedidoEmAndamentoPort;
+import br.com.fiap.soat.grupo48.application.produto.port.api.IProdutoPedidoEmAndamentoPort;
 import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoPedidoRepositoryGateway;
 
 import java.util.List;
 
-public class ProdutoPedidoUseCaseImpl implements ProdutoPedidoEmAndamentoPort {
+public class ProdutoPedidoUseCaseImpl implements IProdutoPedidoEmAndamentoPort {
 
     private final IProdutoPedidoRepositoryGateway IProdutoPedidoRepositoryGateway;
 

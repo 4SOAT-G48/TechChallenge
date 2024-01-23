@@ -5,7 +5,7 @@ import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import java.util.List;
 import java.util.UUID;
 
-public interface ProdutoPort {
+public interface IProdutoPort {
     List<Produto> buscarProdutos();
 
     Produto buscarPeloCodigo(UUID codigo);

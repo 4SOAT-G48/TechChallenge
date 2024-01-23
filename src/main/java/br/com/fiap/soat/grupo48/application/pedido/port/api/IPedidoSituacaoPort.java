@@ -6,7 +6,7 @@ import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 
 import java.util.List;
 
-public interface PedidoSituacaoPort {
+public interface IPedidoSituacaoPort {
     boolean atualizarSituacao(PedidoSituacaoDto pedido);
 
     List<Pedido> buscarPedidosPorSituacao(List<SituacaoPedido> situacoes);

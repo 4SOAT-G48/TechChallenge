@@ -2,7 +2,7 @@ package br.com.fiap.soat.grupo48.application.pedido.port.api;
 
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 
-public interface PedidoEmAndamentoPort {
+public interface IPedidoEmAndamentoPort {
     /**
      * Faze de montagem do pedido.
      * Pode ser desde a adição do primeiro item

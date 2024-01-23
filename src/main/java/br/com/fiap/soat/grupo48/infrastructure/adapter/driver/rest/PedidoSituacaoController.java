@@ -3,7 +3,7 @@ package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
 import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoSituacaoDto;
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
-import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoSituacaoPort;
+import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoSituacaoPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,9 +25,9 @@ import java.util.UUID;
 @RequestMapping("api/pedidosituacao")
 public class PedidoSituacaoController {
 
-    private final PedidoSituacaoPort pedidoSituacaoPort;
+    private final IPedidoSituacaoPort pedidoSituacaoPort;
 
-    public PedidoSituacaoController(PedidoSituacaoPort pedidoSituacaoPort) {
+    public PedidoSituacaoController(IPedidoSituacaoPort pedidoSituacaoPort) {
         this.pedidoSituacaoPort = pedidoSituacaoPort;
     }
 

@@ -5,7 +5,7 @@ import br.com.fiap.soat.grupo48.application.commons.exception.NomeException;
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.model.SituacaoProduto;
-import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPort;
+import br.com.fiap.soat.grupo48.application.produto.port.api.IProdutoPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -24,11 +24,11 @@ import java.util.UUID;
 @RestController
 @RequestMapping("api/produtos")
 public class ProdutoController {
-    private final ProdutoPort produtoServicePort;
+    private final IProdutoPort produtoServicePort;
 
     private final ProdutoDTOMapper produtoDTOMapper;
 
-    public ProdutoController(ProdutoPort produtoServicePort, ProdutoDTOMapper produtoDTOMapper) {
+    public ProdutoController(IProdutoPort produtoServicePort, ProdutoDTOMapper produtoDTOMapper) {
         this.produtoServicePort = produtoServicePort;
         this.produtoDTOMapper = produtoDTOMapper;
     }

@@ -1,14 +1,14 @@
 package br.com.fiap.soat.grupo48.application.produto.usecase;
 
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
-import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPort;
+import br.com.fiap.soat.grupo48.application.produto.port.api.IProdutoPort;
 import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoRepositoryGateway;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class ManutecaoProdutoUsecaseImpl implements ProdutoPort {
+public class ManutecaoProdutoUsecaseImpl implements IProdutoPort {
 
     private final IProdutoRepositoryGateway produtoRepository;
 

@@ -2,7 +2,7 @@ package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
 
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
-import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPedidoEmAndamentoPort;
+import br.com.fiap.soat.grupo48.application.produto.port.api.IProdutoPedidoEmAndamentoPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,9 +23,9 @@ import java.util.List;
 @RequestMapping("api/produtoapedido")
 public class ProdutoPedidoController {
 
-    private final ProdutoPedidoEmAndamentoPort produtoPedidoEmAndamentoPort;
+    private final IProdutoPedidoEmAndamentoPort produtoPedidoEmAndamentoPort;
 
-    public ProdutoPedidoController(ProdutoPedidoEmAndamentoPort produtoPedidoEmAndamentoPort) {
+    public ProdutoPedidoController(IProdutoPedidoEmAndamentoPort produtoPedidoEmAndamentoPort) {
         this.produtoPedidoEmAndamentoPort = produtoPedidoEmAndamentoPort;
     }
 
