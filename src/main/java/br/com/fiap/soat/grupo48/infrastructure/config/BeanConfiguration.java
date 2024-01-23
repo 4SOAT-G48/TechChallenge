@@ -11,7 +11,7 @@ import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoPedidoRepos
 import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoRepositoryGateway;
 import br.com.fiap.soat.grupo48.application.produto.usecase.ManutecaoProdutoUsecaseImpl;
 import br.com.fiap.soat.grupo48.application.produto.usecase.ProdutoPedidoUseCaseImpl;
-import br.com.fiap.soat.grupo48.application.cliente.port.api.ClientePort;
+import br.com.fiap.soat.grupo48.application.cliente.port.api.IClientePort;
 import br.com.fiap.soat.grupo48.application.cliente.port.spi.IClienteRepositoryGateway;
 import br.com.fiap.soat.grupo48.application.cliente.usecase.ClienteUsecaseImpl;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +31,7 @@ public class BeanConfiguration {
     }
 
     @Bean
-    ClientePort clienteUseCase(IClienteRepositoryGateway IClienteRepositoryGateway) {
+    IClientePort clienteUseCase(IClienteRepositoryGateway IClienteRepositoryGateway) {
         return new ClienteUsecaseImpl(IClienteRepositoryGateway);
     }
 

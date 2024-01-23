@@ -1,4 +1,4 @@
-package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.produto.categoria;
 
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
@@ -20,12 +20,12 @@ import java.util.List;
 
 @Tag(name = "Listas de produtos para pedido", description = "Lista de produtos focados para montagem do pedido pelo cliente")
 @RestController
-@RequestMapping("api/produtoapedido")
-public class ProdutoPedidoController {
+@RequestMapping("api/produto/categoria")
+public class ProdutoCategoriaController {
 
     private final IProdutoPedidoEmAndamentoPort produtoPedidoEmAndamentoPort;
 
-    public ProdutoPedidoController(IProdutoPedidoEmAndamentoPort produtoPedidoEmAndamentoPort) {
+    public ProdutoCategoriaController(IProdutoPedidoEmAndamentoPort produtoPedidoEmAndamentoPort) {
         this.produtoPedidoEmAndamentoPort = produtoPedidoEmAndamentoPort;
     }
 

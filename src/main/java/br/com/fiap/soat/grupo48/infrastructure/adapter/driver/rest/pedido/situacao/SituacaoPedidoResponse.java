@@ -1,4 +1,4 @@
-package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido.situacao;
 
 public enum SituacaoPedidoResponse {
     /**

@@ -1,8 +1,9 @@
-package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido.situacao;
 
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoSituacaoPort;
+import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido.PedidoDTOMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
