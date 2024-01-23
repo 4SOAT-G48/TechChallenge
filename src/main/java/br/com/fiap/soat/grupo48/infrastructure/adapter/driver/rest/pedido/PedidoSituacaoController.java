@@ -1,6 +1,5 @@
-package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
 
-import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoSituacaoDto;
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoSituacaoPort;
@@ -27,8 +26,11 @@ public class PedidoSituacaoController {
 
     private final IPedidoSituacaoPort pedidoSituacaoPort;
 
-    public PedidoSituacaoController(IPedidoSituacaoPort pedidoSituacaoPort) {
+    private final PedidoDTOMapper pedidoDTOMapper;
+
+    public PedidoSituacaoController(IPedidoSituacaoPort pedidoSituacaoPort, PedidoDTOMapper pedidoDTOMapper) {
         this.pedidoSituacaoPort = pedidoSituacaoPort;
+        this.pedidoDTOMapper = pedidoDTOMapper;
     }
 
     @Operation(summary = "Atualiza situação do pedido")
@@ -37,11 +39,11 @@ public class PedidoSituacaoController {
             @ApiResponse(responseCode = "404", description = "Pedido não Encontrado", content = { @Content }),
     })
     @PutMapping(value = "/{codigo}")
-    public ResponseEntity<Void> updateSituacaoPedido(@PathVariable UUID codigo, @RequestBody PedidoSituacaoDto pedidoSituacao) {
+    public ResponseEntity<Void> updateSituacaoPedido(@PathVariable UUID codigo, @RequestBody PedidoSituacaoRequest pedidoSituacaoRequest) {
         if (Objects.nonNull(codigo)) {
-            pedidoSituacao.setCodigo(codigo);
+            pedidoSituacaoRequest.setCodigo(codigo);
         }
-        if (this.pedidoSituacaoPort.atualizarSituacao(pedidoSituacao)) {
+        if (this.pedidoSituacaoPort.atualizarSituacao(pedidoSituacaoRequest.getCodigo(),pedidoSituacaoRequest.getSituacao())) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -56,8 +58,8 @@ public class PedidoSituacaoController {
     })
     @GetMapping
     public ResponseEntity<List<Pedido>> getPedidosPorSituacao(@RequestParam List<SituacaoPedido> situacoes) {
-        List<Pedido> pedidoDtos = this.pedidoSituacaoPort.buscarPedidosPorSituacao(situacoes);
-        return new ResponseEntity<>(pedidoDtos, HttpStatus.OK);
+        List<Pedido> pedidos = this.pedidoSituacaoPort.buscarPedidosPorSituacao(situacoes);
+        return new ResponseEntity<>(pedidos, HttpStatus.OK);
     }
 
 }

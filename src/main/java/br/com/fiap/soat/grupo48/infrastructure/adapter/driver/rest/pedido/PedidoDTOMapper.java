@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class PedidoEmAndamentoDTOMapper {
+public class PedidoDTOMapper {
 
     @Autowired
     private ProdutoDTOMapper produtoDTOMapper;
@@ -25,7 +25,7 @@ public class PedidoEmAndamentoDTOMapper {
         return new Pedido(request.getCodigo(),cliente, situacao,request.getIdentificacao(),itens);
     }
 
-    private SituacaoPedido toSituacaoPedido(String situacao) {
+    public SituacaoPedido toSituacaoPedido(String situacao) {
         return SituacaoPedido.valueOf(situacao);
     }
 

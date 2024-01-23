@@ -48,8 +48,4 @@ public class PedidoEmAndamentoUseCaseImpl implements IPedidoEmAndamentoPort {
 
     }
 
-    @Override
-    public Pedido concluiPedido(Pedido pedido) {
-        return null;
-    }
 }

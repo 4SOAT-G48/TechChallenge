@@ -7,9 +7,9 @@ public interface IPedidoEmAndamentoPort {
      * Faze de montagem do pedido.
      * Pode ser desde a adição do primeiro item
      * até ele escolher concluir o pedido.
-     * @param pedido
-     * @param cpfCliente
-     * @return
+     * @param pedido pedido com os dados a serem salvos
+     * @param cpfCliente número do cpf do cliente, quando logado
+     * @return pedido com os dados conforme salvos
      */
     Pedido montaPedido(Pedido pedido, String cpfCliente);
 
@@ -17,11 +17,4 @@ public interface IPedidoEmAndamentoPort {
      * Passa para o pagamento.
      */
     void efetuaPagamento();
-
-    /**
-     * Pedido concluido e pagamento feito.
-     * @param pedidoDto
-     * @return
-     */
-    Pedido concluiPedido(Pedido pedidoDto);
 }

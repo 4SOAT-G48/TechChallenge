@@ -18,8 +18,7 @@ public class ManutecaoProdutoUsecaseImpl implements IProdutoPort {
 
     @Override
     public List<Produto> buscarProdutos() {
-        List<Produto> produtos = this.produtoRepository.buscarTodos();
-        return produtos;
+        return this.produtoRepository.buscarTodos();
     }
 
     @Override

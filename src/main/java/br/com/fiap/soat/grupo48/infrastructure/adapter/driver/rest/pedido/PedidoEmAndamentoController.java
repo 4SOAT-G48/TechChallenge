@@ -23,9 +23,9 @@ import java.util.Objects;
 public class PedidoEmAndamentoController {
 
     private final IPedidoEmAndamentoPort pedidoEmAndamentoPort;
-    private final PedidoEmAndamentoDTOMapper pedidoEmAndamentoDTOMapper;
+    private final PedidoDTOMapper pedidoEmAndamentoDTOMapper;
 
-    public PedidoEmAndamentoController(IPedidoEmAndamentoPort pedidoEmAndamentoPort, PedidoEmAndamentoDTOMapper pedidoEmAndamentoDTOMapper) {
+    public PedidoEmAndamentoController(IPedidoEmAndamentoPort pedidoEmAndamentoPort, PedidoDTOMapper pedidoEmAndamentoDTOMapper) {
         this.pedidoEmAndamentoPort = pedidoEmAndamentoPort;
         this.pedidoEmAndamentoDTOMapper = pedidoEmAndamentoDTOMapper;
     }

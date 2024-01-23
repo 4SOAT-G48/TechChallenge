@@ -1,12 +1,12 @@
 package br.com.fiap.soat.grupo48.application.pedido.usecase;
 
-import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoSituacaoDto;
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoSituacaoPort;
 import br.com.fiap.soat.grupo48.application.pedido.port.spi.IPedidoRepositoryGateway;
 
 import java.util.List;
+import java.util.UUID;
 
 public class PedidoSituacaoUseCaseImpl implements IPedidoSituacaoPort {
 
@@ -17,10 +17,10 @@ public class PedidoSituacaoUseCaseImpl implements IPedidoSituacaoPort {
     }
 
     @Override
-    public boolean atualizarSituacao(PedidoSituacaoDto pedido) {
-        SituacaoPedido situacaoPedido = this.pedidoRepositoryGateway.buscaSituacaoPedido(pedido.getCodigo());
-        if (situacaoPedido != SituacaoPedido.FINALIZADO) {
-            this.pedidoRepositoryGateway.atualizarSituacao(pedido.getCodigo(),pedido.getSituacao());
+    public boolean atualizarSituacao(UUID codigoPedido, SituacaoPedido situacaoPedido) {
+        SituacaoPedido situacaoPedidoAtual = this.pedidoRepositoryGateway.buscaSituacaoPedido(codigoPedido);
+        if (situacaoPedidoAtual != SituacaoPedido.FINALIZADO) {
+            this.pedidoRepositoryGateway.atualizarSituacao(codigoPedido,situacaoPedido);
             return true;
         }
         return false;
@@ -28,8 +28,7 @@ public class PedidoSituacaoUseCaseImpl implements IPedidoSituacaoPort {
 
     @Override
     public List<Pedido> buscarPedidosPorSituacao(List<SituacaoPedido> situacoes) {
-        List<Pedido> pedidos = this.pedidoRepositoryGateway.buscaPedidosPorSituacoes(situacoes);
-        return pedidos;
+        return this.pedidoRepositoryGateway.buscaPedidosPorSituacoes(situacoes);
     }
 
 }
