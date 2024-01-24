@@ -1,4 +1,4 @@
-package br.com.fiap.soat.grupo48.application.pedido.dto;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido.situacao;
 
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import lombok.*;
@@ -11,7 +11,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 @Getter
 @Setter
-public class PedidoSituacaoDto {
+public class PedidoSituacaoRequest {
 
     private UUID codigo;
 

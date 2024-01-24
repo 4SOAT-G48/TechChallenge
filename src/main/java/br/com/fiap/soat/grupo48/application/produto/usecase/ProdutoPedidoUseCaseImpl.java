@@ -1,34 +1,38 @@
 package br.com.fiap.soat.grupo48.application.produto.usecase;
 
-import br.com.fiap.soat.grupo48.application.produto.dto.ProdutoDto;
+import br.com.fiap.soat.grupo48.application.commons.exception.NomeException;
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.model.SituacaoProduto;
-import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPedidoEmAndamentoPort;
-import br.com.fiap.soat.grupo48.application.produto.port.spi.ProdutoPedidoRepositoryPort;
+import br.com.fiap.soat.grupo48.application.produto.port.api.IProdutoPedidoEmAndamentoPort;
+import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoPedidoRepositoryGateway;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class ProdutoPedidoUseCaseImpl implements ProdutoPedidoEmAndamentoPort {
+public class ProdutoPedidoUseCaseImpl implements IProdutoPedidoEmAndamentoPort {
 
-    private final ProdutoPedidoRepositoryPort produtoPedidoRepositoryPort;
+    private final IProdutoPedidoRepositoryGateway IProdutoPedidoRepositoryGateway;
 
-    public ProdutoPedidoUseCaseImpl(ProdutoPedidoRepositoryPort produtoPedidoRepositoryPort) {
-        this.produtoPedidoRepositoryPort = produtoPedidoRepositoryPort;
+    public ProdutoPedidoUseCaseImpl(IProdutoPedidoRepositoryGateway IProdutoPedidoRepositoryGateway) {
+        this.IProdutoPedidoRepositoryGateway = IProdutoPedidoRepositoryGateway;
     }
 
 
     @Override
-    public List<ProdutoDto> buscarProdutosPorCategoria(Categoria categoria) {
-        List<Produto> produtos = this.produtoPedidoRepositoryPort.buscarPorCategoria(categoria);
-        return produtos.stream().map(Produto::toProdutoDto).collect(Collectors.toList());
+    public List<Produto> buscarProdutosPorCategoria(Categoria categoria) {
+        List<Produto> produtos = null;
+        try {
+            produtos = this.IProdutoPedidoRepositoryGateway.buscarPorCategoria(categoria);
+        } catch (NomeException e) {
+            //throw new RuntimeException(e);
+        }
+        return produtos;
     }
 
     @Override
-    public List<ProdutoDto> buscarProdutosDiponiveisPorCategoria(Categoria categoria) {
+    public List<Produto> buscarProdutosDiponiveisPorCategoria(Categoria categoria) {
         //fixo por produtos disponiveis
-        List<Produto> produtos = this.produtoPedidoRepositoryPort.buscarPorCategoriaESituacao(categoria, SituacaoProduto.DISPONIVEL);
-        return produtos.stream().map(Produto::toProdutoDto).collect(Collectors.toList());
+        List<Produto> produtos = this.IProdutoPedidoRepositoryGateway.buscarPorCategoriaESituacao(categoria, SituacaoProduto.DISPONIVEL);
+        return produtos;
     }
 }

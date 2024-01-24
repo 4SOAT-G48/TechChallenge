@@ -6,7 +6,7 @@ import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import java.util.List;
 import java.util.UUID;
 
-public interface PedidoRepositoryPort {
+public interface IPedidoRepositoryGateway {
 
     Pedido salvar(Pedido pedido);
 

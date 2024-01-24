@@ -1,4 +1,4 @@
-package br.com.fiap.soat.grupo48.application.pedido.model;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
 
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-public class PedidoItem {
+public class PedidoItemResponse {
     private UUID codigo;
 
     private Produto produto;

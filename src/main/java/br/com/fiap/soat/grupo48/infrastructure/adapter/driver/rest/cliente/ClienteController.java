@@ -1,7 +1,7 @@
-package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.cliente;
 
 import br.com.fiap.soat.grupo48.application.cliente.model.Cliente;
-import br.com.fiap.soat.grupo48.application.cliente.port.api.ClientePort;
+import br.com.fiap.soat.grupo48.application.cliente.port.api.IClientePort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,9 +18,9 @@ import java.util.Objects;
 @RestController
 @RequestMapping("api/clientes")
 public class ClienteController {
-    private final ClientePort clientePort;
+    private final IClientePort clientePort;
 
-    public ClienteController(ClientePort clienteServicePort) {
+    public ClienteController(IClientePort clienteServicePort) {
         this.clientePort = clienteServicePort;
     }
 

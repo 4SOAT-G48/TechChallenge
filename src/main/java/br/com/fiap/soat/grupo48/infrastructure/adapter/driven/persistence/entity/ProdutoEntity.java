@@ -1,5 +1,6 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity;
 
+import br.com.fiap.soat.grupo48.application.commons.exception.NomeException;
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.model.SituacaoProduto;
@@ -40,12 +41,16 @@ public class ProdutoEntity {
     }
 
     public Produto toProduto() {
-        return new Produto(this.codigo,this.nome,this.categoria,this.preco,this.descricao,this.situacao,
-                this.images.stream().map(ImageEntity::toImage).collect(Collectors.toList()));
+        try {
+            return new Produto(this.codigo,this.nome,this.categoria,this.preco,this.descricao,this.situacao,
+                    this.images.stream().map(ImageEntity::toImage).collect(Collectors.toList()));
+        } catch (NomeException e) {
+            return null;
+        }
     }
 
     public void atualizar(Produto produto) {
-        this.nome = produto.getNome();
+        this.nome = produto.getNome().nome();
         this.categoria = produto.getCategoria();
         this.preco = produto.getPreco();
         this.descricao = produto.getDescricao();
