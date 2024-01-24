@@ -1,37 +1,34 @@
 package br.com.fiap.soat.grupo48.application.pedido.usecase;
 
-import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoDto;
-import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoSituacaoDto;
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
-import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoSituacaoPort;
-import br.com.fiap.soat.grupo48.application.pedido.port.spi.PedidoRepositoryPort;
+import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoSituacaoPort;
+import br.com.fiap.soat.grupo48.application.pedido.port.spi.IPedidoRepositoryGateway;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
-public class PedidoSituacaoUseCaseImpl implements PedidoSituacaoPort {
+public class PedidoSituacaoUseCaseImpl implements IPedidoSituacaoPort {
 
-    private final PedidoRepositoryPort pedidoRepositoryPort;
+    private final IPedidoRepositoryGateway pedidoRepositoryGateway;
 
-    public PedidoSituacaoUseCaseImpl(PedidoRepositoryPort pedidoRepositoryPort) {
-        this.pedidoRepositoryPort = pedidoRepositoryPort;
+    public PedidoSituacaoUseCaseImpl(IPedidoRepositoryGateway pedidoRepositoryGateway) {
+        this.pedidoRepositoryGateway = pedidoRepositoryGateway;
     }
 
     @Override
-    public boolean atualizarSituacao(PedidoSituacaoDto pedido) {
-        SituacaoPedido situacaoPedido = this.pedidoRepositoryPort.buscaSituacaoPedido(pedido.getCodigo());
-        if (situacaoPedido != SituacaoPedido.FINALIZADO) {
-            this.pedidoRepositoryPort.atualizarSituacao(pedido.getCodigo(),pedido.getSituacao());
+    public boolean atualizarSituacao(UUID codigoPedido, SituacaoPedido situacaoPedido) {
+        SituacaoPedido situacaoPedidoAtual = this.pedidoRepositoryGateway.buscaSituacaoPedido(codigoPedido);
+        if (situacaoPedidoAtual != SituacaoPedido.FINALIZADO) {
+            this.pedidoRepositoryGateway.atualizarSituacao(codigoPedido,situacaoPedido);
             return true;
         }
         return false;
     }
 
     @Override
-    public List<PedidoDto> buscarPedidosPorSituacao(List<SituacaoPedido> situacoes) {
-        List<Pedido> pedidos = this.pedidoRepositoryPort.buscaPedidosPorSituacoes(situacoes);
-        return pedidos.stream().map(Pedido::toPedidoDto).collect(Collectors.toList());
+    public List<Pedido> buscarPedidosPorSituacao(List<SituacaoPedido> situacoes) {
+        return this.pedidoRepositoryGateway.buscaPedidosPorSituacoes(situacoes);
     }
 
 }

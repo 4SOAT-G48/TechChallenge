@@ -1,9 +1,8 @@
-package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.produto.categoria;
 
-import br.com.fiap.soat.grupo48.application.produto.dto.ProdutoDto;
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
-import br.com.fiap.soat.grupo48.application.produto.port.api.ProdutoPedidoEmAndamentoPort;
+import br.com.fiap.soat.grupo48.application.produto.port.api.IProdutoPedidoEmAndamentoPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,12 +20,12 @@ import java.util.List;
 
 @Tag(name = "Listas de produtos para pedido", description = "Lista de produtos focados para montagem do pedido pelo cliente")
 @RestController
-@RequestMapping("api/produtoapedido")
-public class ProdutoPedidoController {
+@RequestMapping("api/produto/categoria")
+public class ProdutoCategoriaController {
 
-    private final ProdutoPedidoEmAndamentoPort produtoPedidoEmAndamentoPort;
+    private final IProdutoPedidoEmAndamentoPort produtoPedidoEmAndamentoPort;
 
-    public ProdutoPedidoController(ProdutoPedidoEmAndamentoPort produtoPedidoEmAndamentoPort) {
+    public ProdutoCategoriaController(IProdutoPedidoEmAndamentoPort produtoPedidoEmAndamentoPort) {
         this.produtoPedidoEmAndamentoPort = produtoPedidoEmAndamentoPort;
     }
 
@@ -34,11 +33,11 @@ public class ProdutoPedidoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produtos encontrados para a categoria",
                         content = { @Content(mediaType = "application/json",
-                        schema = @Schema(implementation = ProdutoDto.class)) }),
+                        schema = @Schema(implementation = Produto.class)) }),
     })
     @GetMapping(value = "/{categoria}")
-    ResponseEntity<List<ProdutoDto>> getPorCategoria(@PathVariable Categoria categoria) {
-        List<ProdutoDto> produtos = this.produtoPedidoEmAndamentoPort.buscarProdutosPorCategoria(categoria);
+    ResponseEntity<List<Produto>> getPorCategoria(@PathVariable Categoria categoria) {
+        List<Produto> produtos = this.produtoPedidoEmAndamentoPort.buscarProdutosPorCategoria(categoria);
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 
@@ -46,11 +45,11 @@ public class ProdutoPedidoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produtos  disponíveis encontrados para a categoria",
                     content = { @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = ProdutoDto.class)) }),
+                    schema = @Schema(implementation = Produto.class)) }),
     })
     @GetMapping("/disponiveis/{categoria}")
-    ResponseEntity<List<ProdutoDto>> getPorCategoriaDisponivel(@PathVariable Categoria categoria) {
-        List<ProdutoDto> produtos = this.produtoPedidoEmAndamentoPort.buscarProdutosDiponiveisPorCategoria(categoria);
+    ResponseEntity<List<Produto>> getPorCategoriaDisponivel(@PathVariable Categoria categoria) {
+        List<Produto> produtos = this.produtoPedidoEmAndamentoPort.buscarProdutosDiponiveisPorCategoria(categoria);
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }
 }

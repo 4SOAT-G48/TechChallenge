@@ -27,7 +27,7 @@ public class PedidoEntity {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PedidoItemEntity> itens = new ArrayList<>();
 
-    private String numero;
+    private String identificacao;
 
     public PedidoEntity() {
     }
@@ -48,11 +48,11 @@ public class PedidoEntity {
                 return pedidoItemEntity;
             }).collect(Collectors.toList());
         }
-        this.situacao = pedido.getSituacao();
+        this.identificacao = pedido.getIdentificacao();
     }
 
     public Pedido toPedido() {
-        return new Pedido(this.codigo,this.cliente.toCliente(),this.situacao,this.numero,
+        return new Pedido(this.codigo,this.cliente.toCliente(),this.situacao,this.identificacao,
                 this.itens.stream().map(PedidoItemEntity::toPedidoItem).collect(Collectors.toList()));
     }
 

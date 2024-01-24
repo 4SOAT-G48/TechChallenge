@@ -1,9 +1,8 @@
-package br.com.fiap.soat.grupo48.application.pedido.dto;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
 
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import lombok.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,7 +10,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class PedidoDto {
+public class PedidoRequest {
 
     @Getter
     @Setter
@@ -23,15 +22,15 @@ public class PedidoDto {
 
     @Getter
     @Setter
-    private SituacaoPedido situacao;
+    private String situacao;
 
     @Getter
     @Setter
-    private String numero;
+    private String identificacao;
 
     @Getter
     @Setter
-    private List<PedidoItemDto> itens;
+    private List<PedidoItemRequest> itens;
 
     @Getter
     @Setter

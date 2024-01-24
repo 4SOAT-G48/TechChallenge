@@ -1,9 +1,9 @@
-package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido.situacao;
 
-import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoDto;
-import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoSituacaoDto;
+import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
-import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoSituacaoPort;
+import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoSituacaoPort;
+import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido.PedidoDTOMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,10 +25,13 @@ import java.util.UUID;
 @RequestMapping("api/pedidosituacao")
 public class PedidoSituacaoController {
 
-    private final PedidoSituacaoPort pedidoSituacaoPort;
+    private final IPedidoSituacaoPort pedidoSituacaoPort;
 
-    public PedidoSituacaoController(PedidoSituacaoPort pedidoSituacaoPort) {
+    private final PedidoDTOMapper pedidoDTOMapper;
+
+    public PedidoSituacaoController(IPedidoSituacaoPort pedidoSituacaoPort, PedidoDTOMapper pedidoDTOMapper) {
         this.pedidoSituacaoPort = pedidoSituacaoPort;
+        this.pedidoDTOMapper = pedidoDTOMapper;
     }
 
     @Operation(summary = "Atualiza situação do pedido")
@@ -37,11 +40,11 @@ public class PedidoSituacaoController {
             @ApiResponse(responseCode = "404", description = "Pedido não Encontrado", content = { @Content }),
     })
     @PutMapping(value = "/{codigo}")
-    public ResponseEntity<Void> updateSituacaoPedido(@PathVariable UUID codigo, @RequestBody PedidoSituacaoDto pedidoSituacao) {
+    public ResponseEntity<Void> updateSituacaoPedido(@PathVariable UUID codigo, @RequestBody PedidoSituacaoRequest pedidoSituacaoRequest) {
         if (Objects.nonNull(codigo)) {
-            pedidoSituacao.setCodigo(codigo);
+            pedidoSituacaoRequest.setCodigo(codigo);
         }
-        if (this.pedidoSituacaoPort.atualizarSituacao(pedidoSituacao)) {
+        if (this.pedidoSituacaoPort.atualizarSituacao(pedidoSituacaoRequest.getCodigo(),pedidoSituacaoRequest.getSituacao())) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -52,12 +55,12 @@ public class PedidoSituacaoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Produtos encontrados",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = PedidoDto.class)) }),
+                            schema = @Schema(implementation = Pedido.class)) }),
     })
     @GetMapping
-    public ResponseEntity<List<PedidoDto>> getPedidosPorSituacao(@RequestParam List<SituacaoPedido> situacoes) {
-        List<PedidoDto> pedidoDtos = this.pedidoSituacaoPort.buscarPedidosPorSituacao(situacoes);
-        return new ResponseEntity<>(pedidoDtos, HttpStatus.OK);
+    public ResponseEntity<List<Pedido>> getPedidosPorSituacao(@RequestParam List<SituacaoPedido> situacoes) {
+        List<Pedido> pedidos = this.pedidoSituacaoPort.buscarPedidosPorSituacao(situacoes);
+        return new ResponseEntity<>(pedidos, HttpStatus.OK);
     }
 
 }

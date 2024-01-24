@@ -1,46 +1,46 @@
 package br.com.fiap.soat.grupo48.application.pedido.usecase;
 
 import br.com.fiap.soat.grupo48.application.cliente.model.Cliente;
-import br.com.fiap.soat.grupo48.application.cliente.port.spi.ClienteRepositoryPort;
+import br.com.fiap.soat.grupo48.application.cliente.port.spi.IClienteRepositoryGateway;
 import br.com.fiap.soat.grupo48.application.pedido.aggregate.PedidoAggregate;
-import br.com.fiap.soat.grupo48.application.pedido.dto.PedidoDto;
-import br.com.fiap.soat.grupo48.application.pedido.port.api.PedidoEmAndamentoPort;
-import br.com.fiap.soat.grupo48.application.pedido.port.spi.PedidoRepositoryPort;
+import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
+import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoEmAndamentoPort;
+import br.com.fiap.soat.grupo48.application.pedido.port.spi.IPedidoRepositoryGateway;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
-import br.com.fiap.soat.grupo48.application.produto.port.spi.ProdutoRepositoryPort;
+import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoRepositoryGateway;
 
 import java.util.Objects;
 
-public class PedidoEmAndamentoUseCaseImpl implements PedidoEmAndamentoPort {
-    private final PedidoRepositoryPort pedidoRepositoryPort;
-    private final ClienteRepositoryPort clienteRepositoryPort;
+public class PedidoEmAndamentoUseCaseImpl implements IPedidoEmAndamentoPort {
+    private final IPedidoRepositoryGateway pedidoRepositoryGateway;
+    private final IClienteRepositoryGateway clienteRepositoryGateway;
 
-    private final ProdutoRepositoryPort produtoRepositoryPort;
+    private final IProdutoRepositoryGateway produtoRepositoryGateway;
 
-    public PedidoEmAndamentoUseCaseImpl(PedidoRepositoryPort pedidoRepositoryPort, ClienteRepositoryPort clienteRepositoryPort, ProdutoRepositoryPort produtoRepositoryPort) {
-        this.pedidoRepositoryPort = pedidoRepositoryPort;
-        this.clienteRepositoryPort = clienteRepositoryPort;
-        this.produtoRepositoryPort = produtoRepositoryPort;
+    public PedidoEmAndamentoUseCaseImpl(IPedidoRepositoryGateway pedidoRepositoryGateway, IClienteRepositoryGateway clienteRepositoryGateway, IProdutoRepositoryGateway produtoRepositoryGateway) {
+        this.pedidoRepositoryGateway = pedidoRepositoryGateway;
+        this.clienteRepositoryGateway = clienteRepositoryGateway;
+        this.produtoRepositoryGateway = produtoRepositoryGateway;
     }
 
     @Override
-    public PedidoDto montaPedido(PedidoDto pedidoDto) {
+    public Pedido montaPedido(Pedido pedido,String cpfCliente) {
         Cliente cliente = null;
-        if (Objects.nonNull(pedidoDto.getCpfCliente())) {
+        if (Objects.nonNull(cpfCliente)) {
             // se tiver cpf no pedido o cliente se identificou
-            cliente = this.clienteRepositoryPort.buscarPeloCpf(pedidoDto.getCpfCliente());
+            cliente = this.clienteRepositoryGateway.buscarPeloCpf(cpfCliente);
         }
 
         PedidoAggregate pedidoAggregate = new PedidoAggregate();
-        pedidoAggregate.montaPedido(pedidoDto, cliente);
+        pedidoAggregate.montaPedido(pedido, cliente);
 
         pedidoAggregate.getPedido().getItens().forEach(pedidoItem -> {
-            Produto produto = this.produtoRepositoryPort.buscarPeloCodigo(pedidoItem.getProduto().getCodigo());
+            Produto produto = this.produtoRepositoryGateway.buscarPeloCodigo(pedidoItem.getProduto().getCodigo());
             pedidoItem.setProduto(produto);
 
         });
 
-        return this.pedidoRepositoryPort.salvar(pedidoAggregate.getPedido()).toPedidoDto();
+        return this.pedidoRepositoryGateway.salvar(pedidoAggregate.getPedido());
     }
 
     @Override
@@ -48,8 +48,4 @@ public class PedidoEmAndamentoUseCaseImpl implements PedidoEmAndamentoPort {
 
     }
 
-    @Override
-    public PedidoDto concluiPedido(PedidoDto pedidoDto) {
-        return null;
-    }
 }

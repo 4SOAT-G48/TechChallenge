@@ -1,9 +1,10 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repository.produto;
 
+import br.com.fiap.soat.grupo48.application.commons.exception.NomeException;
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.model.SituacaoProduto;
-import br.com.fiap.soat.grupo48.application.produto.port.spi.ProdutoPedidoRepositoryPort;
+import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoPedidoRepositoryGateway;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.ProdutoEntity;
 import org.springframework.stereotype.Component;
 
@@ -11,11 +12,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ProdutoPedidoRepository implements ProdutoPedidoRepositoryPort {
+public class ProdutoPedidoRepositoryGateway implements IProdutoPedidoRepositoryGateway {
 
     private final SpringProdutoRepository springProdutoRepository;
 
-    public ProdutoPedidoRepository(SpringProdutoRepository springProdutoRepository) {
+    public ProdutoPedidoRepositoryGateway(SpringProdutoRepository springProdutoRepository) {
         this.springProdutoRepository = springProdutoRepository;
     }
 
