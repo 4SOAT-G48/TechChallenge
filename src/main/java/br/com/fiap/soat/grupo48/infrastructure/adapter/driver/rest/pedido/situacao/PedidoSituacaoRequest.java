@@ -5,12 +5,7 @@ import lombok.*;
 
 import java.util.UUID;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
-@Getter
-@Setter
+@Data
 public class PedidoSituacaoRequest {
 
     private UUID codigo;

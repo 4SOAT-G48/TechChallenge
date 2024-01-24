@@ -25,7 +25,7 @@ services:
       - db
     env_file: .env
     environment:
-      - LOGGING_FILE_NAME=/logs/grupo48.log
+      - LOGGING_FILE_NAME=${LOG_PATH}
     networks:
       - tc_soat4_g48_network
 

@@ -27,3 +27,5 @@ replay_pid*
 
 # Environment files
 .env
+
+.idea
