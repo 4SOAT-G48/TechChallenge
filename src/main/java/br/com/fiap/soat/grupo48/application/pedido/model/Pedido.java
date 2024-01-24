@@ -3,6 +3,7 @@ package br.com.fiap.soat.grupo48.application.pedido.model;
 import br.com.fiap.soat.grupo48.application.cliente.model.Cliente;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,6 +12,15 @@ import java.util.UUID;
 @ToString
 @EqualsAndHashCode
 public class Pedido {
+
+    public Pedido(UUID codigo, Cliente cliente, SituacaoPedido situacao, String identificacao, List<PedidoItem> itens) {
+        this.codigo = codigo;
+        this.cliente = cliente;
+        this.situacao = situacao;
+        this.identificacao = identificacao;
+        this.itens = itens;
+    }
+
     @Getter
     @Setter
     private UUID codigo;
@@ -30,5 +40,15 @@ public class Pedido {
     @Getter
     @Setter
     private List<PedidoItem> itens;
+
+    @Getter
+    @Setter
+    private Date dataCriacao;
+
+    @Getter
+    @Setter
+    private Date dataAtualizacao;
+
+
 
 }

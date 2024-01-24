@@ -4,10 +4,8 @@ import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.sql.Timestamp;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -28,6 +26,15 @@ public class PedidoEntity {
     private List<PedidoItemEntity> itens = new ArrayList<>();
 
     private String identificacao;
+
+    @Column(name = "data_criacao", nullable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataCriacao;
+
+    @Column(name = "data_atualizacao", nullable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataAtualizacao;
+
 
     public PedidoEntity() {
     }
@@ -53,7 +60,21 @@ public class PedidoEntity {
 
     public Pedido toPedido() {
         return new Pedido(this.codigo,this.cliente.toCliente(),this.situacao,this.identificacao,
-                this.itens.stream().map(PedidoItemEntity::toPedidoItem).collect(Collectors.toList()));
+                this.itens.stream().map(PedidoItemEntity::toPedidoItem).collect(Collectors.toList()),
+                this.dataCriacao, this.dataAtualizacao);
+    }
+
+    @PrePersist
+    public void insereDatas() {
+        if(Objects.isNull(this.dataCriacao)) {
+            this.dataCriacao = new Timestamp(Calendar.getInstance().getTimeInMillis());
+            this.dataAtualizacao = new Timestamp(Calendar.getInstance().getTimeInMillis());
+        }
+    }
+
+    @PreUpdate
+    public void atualizaDataAtualizacao() {
+        this.dataAtualizacao = new Timestamp(Calendar.getInstance().getTimeInMillis());
     }
 
     public void setSituacao(SituacaoPedido situacao) {
