@@ -31,4 +31,9 @@ public class PedidoSituacaoUseCaseImpl implements IPedidoSituacaoPort {
         return this.pedidoRepositoryGateway.buscaPedidosPorSituacoes(situacoes);
     }
 
+    @Override
+    public List<Pedido> buscarPedidosMostradosMonitorCliente() {
+        return this.pedidoRepositoryGateway.buscaPedidosMostradosMonitorCliente();
+    }
+
 }

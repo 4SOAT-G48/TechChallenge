@@ -14,5 +14,7 @@ public interface IPedidoRepositoryGateway {
 
     List<Pedido> buscaPedidosPorSituacoes(List<SituacaoPedido> situacoes);
 
+    List<Pedido> buscaPedidosMostradosMonitorCliente();
+
     SituacaoPedido buscaSituacaoPedido(UUID codigo);
 }
