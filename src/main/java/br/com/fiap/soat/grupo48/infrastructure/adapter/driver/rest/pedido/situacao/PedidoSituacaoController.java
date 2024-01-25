@@ -53,13 +53,25 @@ public class PedidoSituacaoController {
 
     @Operation(summary = "Recupera a lista de pedidos por situacao")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Produtos encontrados",
+            @ApiResponse(responseCode = "200", description = "Pedidos encontrados",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Pedido.class)) }),
     })
     @GetMapping
     public ResponseEntity<List<Pedido>> getPedidosPorSituacao(@RequestParam List<SituacaoPedido> situacoes) {
         List<Pedido> pedidos = this.pedidoSituacaoPort.buscarPedidosPorSituacao(situacoes);
+        return new ResponseEntity<>(pedidos, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Recupera a lista de pedidos com situações para serem mostradas no monitor de acompanhamento do cliente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pedidos encontrados",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Pedido.class)) }),
+    })
+    @GetMapping(value = "/monitor")
+    public ResponseEntity<List<Pedido>> getPedidosMonitor() {
+        List<Pedido> pedidos = this.pedidoSituacaoPort.buscarPedidosMostradosMonitorCliente();
         return new ResponseEntity<>(pedidos, HttpStatus.OK);
     }
 

@@ -2,9 +2,11 @@ package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entit
 
 import br.com.fiap.soat.grupo48.application.pedido.model.PedidoItem;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.UUID;
 
+@Getter
 @Entity
 @Table(name = "pedido_itens")
 public class PedidoItemEntity {
