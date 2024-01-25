@@ -10,4 +10,6 @@ public interface IPedidoSituacaoPort {
     boolean atualizarSituacao(UUID codigoPedido, SituacaoPedido situacaoPedido);
 
     List<Pedido> buscarPedidosPorSituacao(List<SituacaoPedido> situacoes);
+
+    List<Pedido> buscarPedidosMostradosMonitorCliente();
 }

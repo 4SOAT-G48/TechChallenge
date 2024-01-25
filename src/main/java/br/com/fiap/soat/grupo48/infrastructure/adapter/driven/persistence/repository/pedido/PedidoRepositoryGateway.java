@@ -4,6 +4,7 @@ import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import br.com.fiap.soat.grupo48.application.pedido.port.spi.IPedidoRepositoryGateway;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.PedidoEntity;
+import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido.PedidoDTOMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,8 +18,11 @@ public class PedidoRepositoryGateway implements IPedidoRepositoryGateway {
 
     private final SpringPedidoRepository springPedidoRepository;
 
-    public PedidoRepositoryGateway(SpringPedidoRepository springPedidoRepository) {
+    private final PedidoEntityMapper pedidoEntityMapper;
+
+    public PedidoRepositoryGateway(SpringPedidoRepository springPedidoRepository, PedidoEntityMapper pedidoEntityMapper) {
         this.springPedidoRepository = springPedidoRepository;
+        this.pedidoEntityMapper = pedidoEntityMapper;
     }
 
     @Override
@@ -50,6 +54,12 @@ public class PedidoRepositoryGateway implements IPedidoRepositoryGateway {
     public List<Pedido> buscaPedidosPorSituacoes(List<SituacaoPedido> situacoes) {
         List<PedidoEntity> bySituacaoIn = this.springPedidoRepository.findBySituacaoIn(situacoes);
         return bySituacaoIn.stream().map(PedidoEntity::toPedido).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Pedido> buscaPedidosMostradosMonitorCliente() {
+        List<PedidoEntity> pedidosWithoutFinalizados = this.springPedidoRepository.findPedidosWithoutFinalizados();
+        return pedidosWithoutFinalizados.stream().map(this.pedidoEntityMapper::toPedido).collect(Collectors.toList());
     }
 
     @Override

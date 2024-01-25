@@ -3,11 +3,13 @@ package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entit
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Getter
 @Entity
 @Table(name = "pedidos")
 public class PedidoEntity {
