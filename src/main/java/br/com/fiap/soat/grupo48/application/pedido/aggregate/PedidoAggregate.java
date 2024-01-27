@@ -6,9 +6,11 @@ import br.com.fiap.soat.grupo48.application.pedido.valueobject.GeradorDeNumeroSe
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
+import java.util.Calendar;
 import java.util.Objects;
 
 @NoArgsConstructor
@@ -29,6 +31,8 @@ public class PedidoAggregate {
             this.pedido.setIdentificacao(GeradorDeNumeroSequencial.getInstance().proximoNumero());
         }
         this.pedido.setItens(pedido.getItens());
+
+        this.pedido.setDataCriacao(new Timestamp(Calendar.getInstance().getTimeInMillis()));
     }
 
 
