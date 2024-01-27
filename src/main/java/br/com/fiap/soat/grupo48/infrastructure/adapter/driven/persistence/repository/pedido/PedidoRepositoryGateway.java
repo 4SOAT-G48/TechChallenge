@@ -35,7 +35,8 @@ public class PedidoRepositoryGateway implements IPedidoRepositoryGateway {
             pedidoEntity.atualizar(pedido);
         }
 
-        return this.springPedidoRepository.save(pedidoEntity).toPedido();
+        Pedido pedidoCriado = this.pedidoEntityMapper.toPedido(this.springPedidoRepository.save(pedidoEntity));
+        return pedidoCriado;
     }
 
     @Override
@@ -44,7 +45,8 @@ public class PedidoRepositoryGateway implements IPedidoRepositoryGateway {
         if (byId.isPresent()) {
             PedidoEntity pedidoEntity = byId.get();
             pedidoEntity.setSituacao(situacao);
-            return this.springPedidoRepository.save(pedidoEntity).toPedido();
+            Pedido pedido = this.pedidoEntityMapper.toPedido(this.springPedidoRepository.save(pedidoEntity));
+            return pedido;
         } else {
             return null;
         }
@@ -53,7 +55,7 @@ public class PedidoRepositoryGateway implements IPedidoRepositoryGateway {
     @Override
     public List<Pedido> buscaPedidosPorSituacoes(List<SituacaoPedido> situacoes) {
         List<PedidoEntity> bySituacaoIn = this.springPedidoRepository.findBySituacaoIn(situacoes);
-        return bySituacaoIn.stream().map(PedidoEntity::toPedido).collect(Collectors.toList());
+        return bySituacaoIn.stream().map(this.pedidoEntityMapper::toPedido).collect(Collectors.toList());
     }
 
     @Override

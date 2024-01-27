@@ -4,6 +4,7 @@ import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -22,6 +23,7 @@ public class PedidoEntity {
     @JoinColumn(name = "cliente_codigo", nullable = true)
     private ClienteEntity cliente;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     private SituacaoPedido situacao;
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -60,12 +62,6 @@ public class PedidoEntity {
         this.identificacao = pedido.getIdentificacao();
     }
 
-    public Pedido toPedido() {
-        return new Pedido(this.codigo,this.cliente.toCliente(),this.situacao,this.identificacao,
-                this.itens.stream().map(PedidoItemEntity::toPedidoItem).collect(Collectors.toList()),
-                this.dataCriacao, this.dataAtualizacao);
-    }
-
     @PrePersist
     public void insereDatas() {
         if(Objects.isNull(this.dataCriacao)) {
@@ -77,13 +73,5 @@ public class PedidoEntity {
     @PreUpdate
     public void atualizaDataAtualizacao() {
         this.dataAtualizacao = new Timestamp(Calendar.getInstance().getTimeInMillis());
-    }
-
-    public void setSituacao(SituacaoPedido situacao) {
-        this.situacao = situacao;
-    }
-
-    public SituacaoPedido getSituacao() {
-        return situacao;
     }
 }
