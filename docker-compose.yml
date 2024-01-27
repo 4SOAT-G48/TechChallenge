@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    container_name: tc_soat4_g48_db
+    container_name: fiap_db
     image: postgres:16-alpine
     ports:
       - "5432:5432"
@@ -10,13 +10,13 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
-      - tc_soat4_g48_network
+      - fiap
 
   spring:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: tc_soat4_g48_app
+    container_name: fiap_api
     ports:
       - "8081:8081"
     volumes:
@@ -25,13 +25,13 @@ services:
       - db
     env_file: .env
     environment:
-      - LOGGING_FILE_NAME=/logs/grupo48.log
+      - LOGGING_FILE_NAME=${LOG_PATH}
     networks:
-      - tc_soat4_g48_network
+      - fiap
 
 volumes:
   volume-log:
   pgdata:
 networks:
-  tc_soat4_g48_network:
+  fiap:
     driver: bridge

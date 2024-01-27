@@ -33,4 +33,5 @@ public enum SituacaoPedidoResponse {
      * pedido entregue ao cliente
      */
     FINALIZADO
+
 }

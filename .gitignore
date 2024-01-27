@@ -23,8 +23,11 @@
 hs_err_pid*
 replay_pid*
 /target/*
-.idea/*
+.idea
+./grupo48.iml
 
 # Environment files
 .env
-/.idea/
+
+# Database Volumes
+pgdata/*
