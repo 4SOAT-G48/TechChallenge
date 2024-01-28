@@ -31,6 +31,10 @@ public class PedidoEntity {
 
     private String identificacao;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pagamento_codigo")
+    private PagamentoEntity pagamento;
+
     @Column(name = "data_criacao", nullable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCriacao;

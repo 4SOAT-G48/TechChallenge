@@ -1,5 +1,8 @@
 package br.com.fiap.soat.grupo48.infrastructure.config;
 
+import br.com.fiap.soat.grupo48.application.pagamento.port.api.IMetodoPagamentoPort;
+import br.com.fiap.soat.grupo48.application.pagamento.port.spi.IMetodoPagamentoRepositoryGateway;
+import br.com.fiap.soat.grupo48.application.pagamento.usecase.MetodoPagamentoUsecaseImpl;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoEmAndamentoPort;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoSituacaoPort;
 import br.com.fiap.soat.grupo48.application.pedido.port.spi.IPedidoRepositoryGateway;
@@ -43,5 +46,10 @@ public class BeanConfiguration {
     @Bean
     IPedidoSituacaoPort pedidoSituacaoPort(IPedidoRepositoryGateway IPedidoRepositoryGateway) {
         return  new PedidoSituacaoUseCaseImpl(IPedidoRepositoryGateway);
+    }
+
+    @Bean
+    IMetodoPagamentoPort metodoPagamentoUseCase(IMetodoPagamentoRepositoryGateway metodoPagamentoRepositoryGateway) {
+        return new MetodoPagamentoUsecaseImpl(metodoPagamentoRepositoryGateway);
     }
 }
