@@ -4,6 +4,7 @@ import br.com.fiap.soat.grupo48.application.pagamento.model.TipoPagamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -11,6 +12,8 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Entity
 @Table(name = "metodos_pagamento")

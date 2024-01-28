@@ -1,5 +1,6 @@
-package br.com.fiap.soat.grupo48.application.pagamento.model;
+package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pagamento;
 
+import br.com.fiap.soat.grupo48.application.pagamento.model.SituacaoPagamento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +12,10 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Pagamento {
+public class PagamentoResponse {
 
     private UUID codigo;
-    private MetodoPagamento metodoPagamento;
+    private MetodoPagamentoResponse metodoPagamento;
     private SituacaoPagamento situacaoPagamento;
 
 

@@ -107,8 +107,6 @@ public class ProdutoController {
     public ResponseEntity<Void> getGeraProdutosIniciais() {
 
         try {
-            this.produtoServicePort.criarProduto(new Produto(null,"Hambúrguer Simples", Categoria.LANCHE,20.0,"Hambúrguer de carne 150g com queijo e alface", SituacaoProduto.DISPONIVEL, null));
-
             this.produtoServicePort.criarProduto(new Produto(null,"Hambúrguer Simples", Categoria.LANCHE, 20.0,"Hambúrguer de carne 150g com queijo e alface", SituacaoProduto.DISPONIVEL, null));
             this.produtoServicePort.criarProduto(new Produto(null,"Hambúrguer Vegetariano", Categoria.LANCHE, 21.0,"Hambúrguer de grão de bico 150g com queijo e alface", SituacaoProduto.DISPONIVEL, null));
             this.produtoServicePort.criarProduto(new Produto(null,"Hambúrguer Duplo", Categoria.LANCHE, 30.0,"2 Hambúrgueres de carne 150g com queijo, alface e tomate", SituacaoProduto.DISPONIVEL, null));

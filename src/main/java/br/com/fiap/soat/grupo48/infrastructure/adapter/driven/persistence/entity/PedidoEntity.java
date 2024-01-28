@@ -1,5 +1,6 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity;
 
+import br.com.fiap.soat.grupo48.application.pagamento.model.Pagamento;
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import jakarta.persistence.*;
@@ -31,6 +32,7 @@ public class PedidoEntity {
 
     private String identificacao;
 
+    @Setter
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pagamento_codigo")
     private PagamentoEntity pagamento;
@@ -51,7 +53,7 @@ public class PedidoEntity {
         this.atualizar(pedido);
     }
 
-    public void atualizar(Pedido pedido) {
+    public void atualizar(Pedido pedido ) {
         if (Objects.nonNull(pedido.getCliente())) {
             this.cliente = new ClienteEntity(pedido.getCliente());
         }

@@ -25,7 +25,7 @@ public class PedidoEntityMapper {
         return new Pedido(pedidoEntity.getCodigo(),pedidoEntity.getCliente().toCliente(),
                 pedidoEntity.getSituacao(),pedidoEntity.getIdentificacao(),
                 pedidoEntity.getItens().stream().map(this::toPedidoItem).collect(Collectors.toList()),
-                this.pagamentoMapper.toPagamento(pedidoEntity.getPagamento(),pedidoEntity),
+                this.pagamentoMapper.toPagamento(pedidoEntity.getPagamento()),
                 pedidoEntity.getDataCriacao(), pedidoEntity.getDataAtualizacao());
     }
 

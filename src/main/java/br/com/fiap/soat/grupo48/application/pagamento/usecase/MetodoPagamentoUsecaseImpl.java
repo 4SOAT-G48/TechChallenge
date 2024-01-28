@@ -4,6 +4,8 @@ import br.com.fiap.soat.grupo48.application.pagamento.model.MetodoPagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.port.api.IMetodoPagamentoPort;
 import br.com.fiap.soat.grupo48.application.pagamento.port.spi.IMetodoPagamentoRepositoryGateway;
 
+import java.util.List;
+
 public class MetodoPagamentoUsecaseImpl implements IMetodoPagamentoPort {
 
     private final IMetodoPagamentoRepositoryGateway metodoPagamentoRepositoryGateway;
@@ -15,6 +17,11 @@ public class MetodoPagamentoUsecaseImpl implements IMetodoPagamentoPort {
     @Override
     public long buscarQuantidade() {
         return this.metodoPagamentoRepositoryGateway.buscarQuantidade();
+    }
+
+    @Override
+    public List<MetodoPagamento> buscarMetodosPagamentos() {
+        return this.metodoPagamentoRepositoryGateway.buscarTodos();
     }
 
     @Override

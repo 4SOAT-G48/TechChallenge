@@ -48,12 +48,13 @@ public class Pedido {
     @Setter
     private Date dataAtualizacao;
 
-    public Pedido(UUID codigo, Cliente cliente, SituacaoPedido situacao, String identificacao, List<PedidoItem> itens) {
+    public Pedido(UUID codigo, Cliente cliente, SituacaoPedido situacao, String identificacao, List<PedidoItem> itens, Pagamento pagamento) {
         this.codigo = codigo;
         this.cliente = cliente;
         this.situacao = situacao;
         this.identificacao = identificacao;
         this.itens = itens;
+        this.pagamento = pagamento;
     }
 
 }

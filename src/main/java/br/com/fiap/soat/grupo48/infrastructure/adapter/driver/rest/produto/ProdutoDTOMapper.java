@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Component
 public class ProdutoDTOMapper {
 
-    private IProdutoRepositoryGateway produtoRepositoryGateway;
+    private final IProdutoRepositoryGateway produtoRepositoryGateway;
 
     public ProdutoDTOMapper(IProdutoRepositoryGateway produtoRepositoryGateway) {
         this.produtoRepositoryGateway = produtoRepositoryGateway;

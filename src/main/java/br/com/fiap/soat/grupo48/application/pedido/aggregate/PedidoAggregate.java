@@ -32,6 +32,8 @@ public class PedidoAggregate {
         }
         this.pedido.setItens(pedido.getItens());
 
+        this.pedido.setPagamento(pedido.getPagamento());
+
         this.pedido.setDataCriacao(new Timestamp(Calendar.getInstance().getTimeInMillis()));
     }
 

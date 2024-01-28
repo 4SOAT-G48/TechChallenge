@@ -3,7 +3,9 @@ package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repos
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import br.com.fiap.soat.grupo48.application.pedido.port.spi.IPedidoRepositoryGateway;
+import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.PagamentoEntity;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.PedidoEntity;
+import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repository.pagamento.SpringPagamentoRepository;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido.PedidoDTOMapper;
 import org.springframework.stereotype.Component;
 
@@ -20,9 +22,12 @@ public class PedidoRepositoryGateway implements IPedidoRepositoryGateway {
 
     private final PedidoEntityMapper pedidoEntityMapper;
 
-    public PedidoRepositoryGateway(SpringPedidoRepository springPedidoRepository, PedidoEntityMapper pedidoEntityMapper) {
+    private final SpringPagamentoRepository springPagamentoRepository;
+
+    public PedidoRepositoryGateway(SpringPedidoRepository springPedidoRepository, PedidoEntityMapper pedidoEntityMapper, SpringPagamentoRepository springPagamentoRepository) {
         this.springPedidoRepository = springPedidoRepository;
         this.pedidoEntityMapper = pedidoEntityMapper;
+        this.springPagamentoRepository = springPagamentoRepository;
     }
 
     @Override
@@ -33,6 +38,12 @@ public class PedidoRepositoryGateway implements IPedidoRepositoryGateway {
         } else {
             pedidoEntity = this.springPedidoRepository.findById(pedido.getCodigo()).get();
             pedidoEntity.atualizar(pedido);
+        }
+        if (Objects.nonNull(pedido.getPagamento()) && Objects.nonNull(pedido.getPagamento().getCodigo())) {
+            Optional<PagamentoEntity> byId = this.springPagamentoRepository.findById(pedido.getPagamento().getCodigo());
+            if (byId.isPresent()) {
+                pedidoEntity.setPagamento(byId.get());
+            }
         }
 
         Pedido pedidoCriado = this.pedidoEntityMapper.toPedido(this.springPedidoRepository.save(pedidoEntity));

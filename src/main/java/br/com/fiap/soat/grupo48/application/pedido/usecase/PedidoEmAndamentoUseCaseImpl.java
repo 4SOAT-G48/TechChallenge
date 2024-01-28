@@ -2,10 +2,15 @@ package br.com.fiap.soat.grupo48.application.pedido.usecase;
 
 import br.com.fiap.soat.grupo48.application.cliente.model.Cliente;
 import br.com.fiap.soat.grupo48.application.cliente.port.spi.IClienteRepositoryGateway;
-import br.com.fiap.soat.grupo48.application.pedido.aggregate.PedidoAggregate;
+import br.com.fiap.soat.grupo48.application.pagamento.model.MetodoPagamento;
+import br.com.fiap.soat.grupo48.application.pagamento.model.SituacaoPagamento;
+import br.com.fiap.soat.grupo48.application.pagamento.port.spi.IMetodoPagamentoRepositoryGateway;
+import br.com.fiap.soat.grupo48.application.pagamento.port.spi.IPagamentoRepositoryGateway;
+import br.com.fiap.soat.grupo48.application.pedido.exception.MetodoPagamentoInvalidoException;
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoEmAndamentoPort;
 import br.com.fiap.soat.grupo48.application.pedido.port.spi.IPedidoRepositoryGateway;
+import br.com.fiap.soat.grupo48.application.pedido.valueobject.GeradorDeNumeroSequencial;
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoRepositoryGateway;
 
@@ -17,30 +22,57 @@ public class PedidoEmAndamentoUseCaseImpl implements IPedidoEmAndamentoPort {
 
     private final IProdutoRepositoryGateway produtoRepositoryGateway;
 
-    public PedidoEmAndamentoUseCaseImpl(IPedidoRepositoryGateway pedidoRepositoryGateway, IClienteRepositoryGateway clienteRepositoryGateway, IProdutoRepositoryGateway produtoRepositoryGateway) {
+    private final IMetodoPagamentoRepositoryGateway metodoPagamentoRepositoryGateway;
+
+    private final IPagamentoRepositoryGateway pagamentoRepositoryGateway;
+
+    public PedidoEmAndamentoUseCaseImpl(IPedidoRepositoryGateway pedidoRepositoryGateway, IClienteRepositoryGateway clienteRepositoryGateway, IProdutoRepositoryGateway produtoRepositoryGateway, IMetodoPagamentoRepositoryGateway metodoPagamentoRepositoryGateway, IPagamentoRepositoryGateway pagamentoRepositoryGateway) {
         this.pedidoRepositoryGateway = pedidoRepositoryGateway;
         this.clienteRepositoryGateway = clienteRepositoryGateway;
         this.produtoRepositoryGateway = produtoRepositoryGateway;
+        this.metodoPagamentoRepositoryGateway = metodoPagamentoRepositoryGateway;
+        this.pagamentoRepositoryGateway = pagamentoRepositoryGateway;
     }
 
     @Override
-    public Pedido montaPedido(Pedido pedido,String cpfCliente) {
+    public Pedido montaPedido(Pedido pedido,String cpfCliente) throws MetodoPagamentoInvalidoException {
         Cliente cliente = null;
         if (Objects.nonNull(cpfCliente)) {
             // se tiver cpf no pedido o cliente se identificou
             cliente = this.clienteRepositoryGateway.buscarPeloCpf(cpfCliente);
+            pedido.setCliente(cliente);
         }
 
-        PedidoAggregate pedidoAggregate = new PedidoAggregate();
-        pedidoAggregate.montaPedido(pedido, cliente);
+        // verficação de informações de pagamento
+        if (Objects.nonNull(pedido.getPagamento()) && Objects.isNull(pedido.getPagamento().getCodigo())) {
+            // verifica o metodo de pagamento
+            if (Objects.isNull(pedido.getPagamento().getMetodoPagamento()) || Objects.isNull(pedido.getPagamento().getMetodoPagamento().getCodigo())) {
+                throw new MetodoPagamentoInvalidoException("Método de pagamento não informado ou inválido.");
+            } else {
+                MetodoPagamento metodoPagamento = this.metodoPagamentoRepositoryGateway.buscarPeloCodigo(pedido.getPagamento().getMetodoPagamento().getCodigo());
+                if (Objects.isNull(metodoPagamento)) {
+                    throw new MetodoPagamentoInvalidoException("Método de pagamento não exites na nossa base.");
+                } else {
+                    pedido.getPagamento().setMetodoPagamento(metodoPagamento);
+                }
+            }
+            pedido.getPagamento().setSituacaoPagamento(SituacaoPagamento.PENDENTE);
+            pedido.setPagamento( this.pagamentoRepositoryGateway.salvar(pedido.getPagamento()));
+        }
 
-        pedidoAggregate.getPedido().getItens().forEach(pedidoItem -> {
+        if (Objects.nonNull(pedido.getIdentificacao())
+                && !pedido.getIdentificacao().isEmpty()) {
+            pedido.setIdentificacao(pedido.getIdentificacao());
+        } else {
+            pedido.setIdentificacao(GeradorDeNumeroSequencial.getInstance().proximoNumero());
+        }
+
+        pedido.getItens().forEach(pedidoItem -> {
             Produto produto = this.produtoRepositoryGateway.buscarPeloCodigo(pedidoItem.getProduto().getCodigo());
             pedidoItem.setProduto(produto);
-
         });
 
-        return this.pedidoRepositoryGateway.salvar(pedidoAggregate.getPedido());
+        return this.pedidoRepositoryGateway.salvar(pedido);
     }
 
     @Override

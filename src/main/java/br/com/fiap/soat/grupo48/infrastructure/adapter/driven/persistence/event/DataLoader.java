@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-    private IMetodoPagamentoPort metodoPagamentoPort;
+    private final IMetodoPagamentoPort metodoPagamentoPort;
 
     @Autowired
     public DataLoader(IMetodoPagamentoPort metodoPagamentoPort) {
