@@ -2,12 +2,15 @@ package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repos
 
 import br.com.fiap.soat.grupo48.application.pagamento.model.MetodoPagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.model.Pagamento;
+import br.com.fiap.soat.grupo48.application.pagamento.model.SituacaoPagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.port.spi.IPagamentoRepositoryGateway;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.MetodoPagamentoEntity;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.PagamentoEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class PagamentoGateway implements IPagamentoRepositoryGateway {
@@ -36,5 +39,28 @@ public class PagamentoGateway implements IPagamentoRepositoryGateway {
         Pagamento pagamentoCriado = this.pagamentoMapper.toPagamento(this.springPagamentoRepository.save(pagamentoEntity));
 
         return pagamentoCriado;
+    }
+
+    @Override
+    public Pagamento buscarPeloCodigo(UUID codigo) {
+        Optional<PagamentoEntity> byId = this.springPagamentoRepository.findById(codigo);
+        if (byId.isPresent()) {
+            PagamentoEntity pagamentoEntity = byId.get();
+            return this.pagamentoMapper.toPagamento(pagamentoEntity);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Pagamento atualizaSituacao(UUID codigo, SituacaoPagamento situacaoPagamento) {
+        Optional<PagamentoEntity> byId = this.springPagamentoRepository.findById(codigo);
+        if (byId.isPresent()) {
+            PagamentoEntity pagamentoEntity = byId.get();
+            pagamentoEntity.setSituacaoPagamento(situacaoPagamento);
+            return this.pagamentoMapper.toPagamento(this.springPagamentoRepository.save(pagamentoEntity));
+        } else {
+            return null;
+        }
     }
 }

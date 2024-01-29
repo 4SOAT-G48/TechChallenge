@@ -36,7 +36,7 @@ public class PedidoEmAndamentoUseCaseImpl implements IPedidoEmAndamentoPort {
 
     @Override
     public Pedido montaPedido(Pedido pedido,String cpfCliente) throws MetodoPagamentoInvalidoException {
-        Cliente cliente = null;
+        Cliente cliente;
         if (Objects.nonNull(cpfCliente)) {
             // se tiver cpf no pedido o cliente se identificou
             cliente = this.clienteRepositoryGateway.buscarPeloCpf(cpfCliente);
