@@ -27,11 +27,8 @@ public class PedidoSituacaoController {
 
     private final IPedidoSituacaoPort pedidoSituacaoPort;
 
-    private final PedidoDTOMapper pedidoDTOMapper;
-
-    public PedidoSituacaoController(IPedidoSituacaoPort pedidoSituacaoPort, PedidoDTOMapper pedidoDTOMapper) {
+    public PedidoSituacaoController(IPedidoSituacaoPort pedidoSituacaoPort) {
         this.pedidoSituacaoPort = pedidoSituacaoPort;
-        this.pedidoDTOMapper = pedidoDTOMapper;
     }
 
     @Operation(summary = "Atualiza situação do pedido")

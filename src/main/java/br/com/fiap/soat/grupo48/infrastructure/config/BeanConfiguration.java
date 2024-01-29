@@ -1,5 +1,11 @@
 package br.com.fiap.soat.grupo48.infrastructure.config;
 
+import br.com.fiap.soat.grupo48.application.pagamento.port.api.IMetodoPagamentoPort;
+import br.com.fiap.soat.grupo48.application.pagamento.port.api.IPagamentoSituacaoPort;
+import br.com.fiap.soat.grupo48.application.pagamento.port.spi.IMetodoPagamentoRepositoryGateway;
+import br.com.fiap.soat.grupo48.application.pagamento.port.spi.IPagamentoRepositoryGateway;
+import br.com.fiap.soat.grupo48.application.pagamento.usecase.MetodoPagamentoUsecaseImpl;
+import br.com.fiap.soat.grupo48.application.pagamento.usecase.PagamentoSituacaoUsecaseImpl;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoEmAndamentoPort;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoSituacaoPort;
 import br.com.fiap.soat.grupo48.application.pedido.port.spi.IPedidoRepositoryGateway;
@@ -21,27 +27,41 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 
     @Bean
-    IProdutoPort manutencaoProdutoUseCase(IProdutoRepositoryGateway IProdutoRepositoryGateway) {
-        return new ManutecaoProdutoUsecaseImpl(IProdutoRepositoryGateway);
+    IProdutoPort manutencaoProdutoUseCase(IProdutoRepositoryGateway produtoRepositoryGateway) {
+        return new ManutecaoProdutoUsecaseImpl(produtoRepositoryGateway);
     }
 
     @Bean
-    IProdutoPedidoEmAndamentoPort produtoPedidoUseCase(IProdutoPedidoRepositoryGateway IProdutoPedidoRepositoryGateway) {
-        return new ProdutoPedidoUseCaseImpl(IProdutoPedidoRepositoryGateway);
+    IProdutoPedidoEmAndamentoPort produtoPedidoUseCase(IProdutoPedidoRepositoryGateway produtoPedidoRepositoryGateway) {
+        return new ProdutoPedidoUseCaseImpl(produtoPedidoRepositoryGateway);
     }
 
     @Bean
-    IClientePort clienteUseCase(IClienteRepositoryGateway IClienteRepositoryGateway) {
-        return new ClienteUsecaseImpl(IClienteRepositoryGateway);
+    IClientePort clienteUseCase(IClienteRepositoryGateway clienteRepositoryGateway) {
+        return new ClienteUsecaseImpl(clienteRepositoryGateway);
     }
 
     @Bean
-    IPedidoEmAndamentoPort pedidoUseCase(IPedidoRepositoryGateway IPedidoRepositoryGateway, IClienteRepositoryGateway IClienteRepositoryGateway, IProdutoRepositoryGateway IProdutoRepositoryGateway) {
-        return new PedidoEmAndamentoUseCaseImpl(IPedidoRepositoryGateway, IClienteRepositoryGateway, IProdutoRepositoryGateway);
+    IPedidoEmAndamentoPort pedidoUseCase(IPedidoRepositoryGateway pedidoRepositoryGateway,
+                                         IClienteRepositoryGateway clienteRepositoryGateway,
+                                         IProdutoRepositoryGateway produtoRepositoryGateway,
+                                         IMetodoPagamentoRepositoryGateway metodoPagamentoRepositoryGateway,
+                                         IPagamentoRepositoryGateway pagamentoRepositoryGateway) {
+        return new PedidoEmAndamentoUseCaseImpl(pedidoRepositoryGateway, clienteRepositoryGateway, produtoRepositoryGateway,metodoPagamentoRepositoryGateway, pagamentoRepositoryGateway);
     }
 
     @Bean
-    IPedidoSituacaoPort pedidoSituacaoPort(IPedidoRepositoryGateway IPedidoRepositoryGateway) {
-        return  new PedidoSituacaoUseCaseImpl(IPedidoRepositoryGateway);
+    IPedidoSituacaoPort pedidoSituacaoPort(IPedidoRepositoryGateway pedidoRepositoryGateway) {
+        return  new PedidoSituacaoUseCaseImpl(pedidoRepositoryGateway);
+    }
+
+    @Bean
+    IMetodoPagamentoPort metodoPagamentoUseCase(IMetodoPagamentoRepositoryGateway metodoPagamentoRepositoryGateway) {
+        return new MetodoPagamentoUsecaseImpl(metodoPagamentoRepositoryGateway);
+    }
+
+    @Bean
+    IPagamentoSituacaoPort pagamentoSituacaoUseCase(IPagamentoRepositoryGateway pagamentoRepositoryGateway, IPedidoRepositoryGateway pedidoRepositoryGateway){
+        return new PagamentoSituacaoUsecaseImpl(pagamentoRepositoryGateway,pedidoRepositoryGateway);
     }
 }

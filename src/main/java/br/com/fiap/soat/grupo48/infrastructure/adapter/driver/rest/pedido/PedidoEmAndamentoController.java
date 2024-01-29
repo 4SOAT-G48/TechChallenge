@@ -1,5 +1,6 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
 
+import br.com.fiap.soat.grupo48.application.commons.exception.ApplicationException;
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.port.api.IPedidoEmAndamentoPort;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,17 +33,21 @@ public class PedidoEmAndamentoController {
 
     @Operation(summary = "Cria o pedido")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Pedido Criado", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = IPedidoEmAndamentoPort.class))}),
-            @ApiResponse(responseCode = "400", description = "Pedido inválido", content = { @Content }),
+            @ApiResponse(responseCode = "200", description = "Pedido Criado", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = IPedidoEmAndamentoPort.class))}),
+            @ApiResponse(responseCode = "400", description = "Pedido inválido", content = {@Content}),
     })
     @PostMapping
-    public ResponseEntity<Pedido> montagemPedido(@RequestBody PedidoRequest request) {
-        if(Objects.isNull(request)) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<?> montagemPedido(@RequestBody PedidoCriacaoRequest request) {
+        try {
+            if (Objects.isNull(request)) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
 
-        Pedido pedido = this.pedidoEmAndamentoDTOMapper.toPedido(request);
-        pedido = this.pedidoEmAndamentoPort.montaPedido(pedido, request.getCpfCliente());
-        return new ResponseEntity<>(pedido, HttpStatus.CREATED);
+            Pedido pedido = this.pedidoEmAndamentoDTOMapper.toPedidoCriacao(request);
+            pedido = this.pedidoEmAndamentoPort.montaPedido(pedido, request.getCpfCliente());
+            return new ResponseEntity<>(pedido, HttpStatus.CREATED);
+        } catch (ApplicationException e) { //todas as exceções da aplicação/negócio
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }
