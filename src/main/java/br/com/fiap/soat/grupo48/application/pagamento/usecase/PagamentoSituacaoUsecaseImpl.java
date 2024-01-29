@@ -6,6 +6,8 @@ import br.com.fiap.soat.grupo48.application.pagamento.port.api.IPagamentoSituaca
 import br.com.fiap.soat.grupo48.application.pagamento.port.spi.IPagamentoRepositoryGateway;
 import br.com.fiap.soat.grupo48.application.pedido.port.spi.IPedidoRepositoryGateway;
 
+import java.util.UUID;
+
 public class PagamentoSituacaoUsecaseImpl implements IPagamentoSituacaoPort {
 
     private final IPagamentoRepositoryGateway pagamentoRepositoryGateway;
@@ -27,5 +29,10 @@ public class PagamentoSituacaoUsecaseImpl implements IPagamentoSituacaoPort {
         } else {
         return false;
         }
+    }
+
+    @Override
+    public Pagamento buscarPagamento(UUID codigo) {
+        return this.pagamentoRepositoryGateway.buscarPeloCodigo(codigo);
     }
 }
