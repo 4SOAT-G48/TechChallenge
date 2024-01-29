@@ -1,5 +1,6 @@
 package br.com.fiap.soat.grupo48.application.pedido.port.api;
 
+import br.com.fiap.soat.grupo48.application.pedido.exception.MetodoPagamentoInvalidoException;
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 
 public interface IPedidoEmAndamentoPort {
@@ -11,7 +12,7 @@ public interface IPedidoEmAndamentoPort {
      * @param cpfCliente número do cpf do cliente, quando logado
      * @return pedido com os dados conforme salvos
      */
-    Pedido montaPedido(Pedido pedido, String cpfCliente);
+    Pedido montaPedido(Pedido pedido, String cpfCliente) throws MetodoPagamentoInvalidoException;
 
     /**
      * Passa para o pagamento.

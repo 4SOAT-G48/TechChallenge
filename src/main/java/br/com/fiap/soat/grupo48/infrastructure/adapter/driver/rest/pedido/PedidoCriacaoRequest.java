@@ -1,5 +1,6 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
 
+import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pagamento.PagamentoCriacaoRequest;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pagamento.PagamentoRequest;
 import lombok.*;
 
@@ -10,7 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class PedidoRequest {
+public class PedidoCriacaoRequest {
 
     @Getter
     @Setter
@@ -34,7 +35,7 @@ public class PedidoRequest {
 
     @Getter
     @Setter
-    private PagamentoRequest pagamento;
+    private PagamentoCriacaoRequest pagamento;
 
     @Getter
     @Setter

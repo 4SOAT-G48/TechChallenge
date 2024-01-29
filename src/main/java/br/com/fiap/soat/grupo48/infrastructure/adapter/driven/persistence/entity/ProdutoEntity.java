@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -42,8 +43,14 @@ public class ProdutoEntity {
 
     public Produto toProduto() {
         try {
-            return new Produto(this.codigo,this.nome,this.categoria,this.preco,this.descricao,this.situacao,
-                    this.images.stream().map(ImageEntity::toImage).collect(Collectors.toList()));
+            List<Imagem> imagens;
+            if (Objects.isNull(this.images)) {
+                imagens = new ArrayList<>();
+            } else {
+                imagens = this.images.stream().map(ImageEntity::toImage).collect(Collectors.toList());
+            }
+            return new Produto(this.codigo, this.nome, this.categoria, this.preco, this.descricao, this.situacao,
+                    imagens);
         } catch (NomeException e) {
             return null;
         }
@@ -56,9 +63,11 @@ public class ProdutoEntity {
         this.descricao = produto.getDescricao();
         this.situacao = produto.getSituacao();
         this.images = new ArrayList<>();
-        for (Imagem imagem : produto.getImagens()) {
-            String url = imagem.url();
-            this.images.add(new ImageEntity(url));
+        if (Objects.nonNull(produto.getImagens())) {
+            for (Imagem imagem : produto.getImagens()) {
+                String url = imagem.url();
+                this.images.add(new ImageEntity(url));
+            }
         }
     }
 }

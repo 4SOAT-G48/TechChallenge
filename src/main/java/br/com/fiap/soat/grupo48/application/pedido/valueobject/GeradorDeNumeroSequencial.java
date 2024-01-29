@@ -13,7 +13,7 @@ public class GeradorDeNumeroSequencial {
     private String letraMes;
     private String letraSemana;
 
-    private DecimalFormat df;
+    private final DecimalFormat df;
     private GeradorDeNumeroSequencial() {
         df = new DecimalFormat("000000");
     }

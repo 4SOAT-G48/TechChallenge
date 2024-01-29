@@ -1,6 +1,7 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
 
 import br.com.fiap.soat.grupo48.application.cliente.model.Cliente;
+import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pagamento.PagamentoResponse;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido.situacao.SituacaoPedidoResponse;
 import lombok.*;
 
@@ -27,6 +28,10 @@ public class PedidoResponse {
     @Getter
     @Setter
     private String identificacao;
+
+    @Getter
+    @Setter
+    private PagamentoResponse pagamento;
 
     @Getter
     @Setter
