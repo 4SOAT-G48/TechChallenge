@@ -1,6 +1,7 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pagamento.situacao;
 
 
+import br.com.fiap.soat.grupo48.application.pagamento.model.Pagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.port.api.IPagamentoSituacaoPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -9,23 +10,21 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Tag(name = "Acompanhamento da situação do pagamento")
 @RestController
 @RequestMapping("api/pagamento/situacao")
-public class SituacaoPagamentoController {
+public class PagamentoSituacaoController {
 
     private final IPagamentoSituacaoPort pagamentoSituacaoPort;
 
     private final PagamentoSituacaoMapper pagamentoSituacaoMapper;
 
-    public SituacaoPagamentoController(IPagamentoSituacaoPort pagamentoSituacaoPort, PagamentoSituacaoMapper pagamentoSituacaoMapper) {
+    public PagamentoSituacaoController(IPagamentoSituacaoPort pagamentoSituacaoPort, PagamentoSituacaoMapper pagamentoSituacaoMapper) {
         this.pagamentoSituacaoPort = pagamentoSituacaoPort;
         this.pagamentoSituacaoMapper = pagamentoSituacaoMapper;
     }
@@ -47,6 +46,13 @@ public class SituacaoPagamentoController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Você deve informar um corpo com código e situação de pagamentos");
         }
+    }
+
+    @GetMapping(value = "/{codigo}")
+    public ResponseEntity<PagamentoSituacaoResponse> getSituacaoPagamento(@PathVariable UUID codigo) {
+        Pagamento pagamento = this.pagamentoSituacaoPort.buscarPagamento(codigo);
+        PagamentoSituacaoResponse pagamentoSituacaoResponse = this.pagamentoSituacaoMapper.toPagamentoSituacaoResponse(pagamento);
+        return new ResponseEntity<>(pagamentoSituacaoResponse, HttpStatus.OK);
     }
 
 }
