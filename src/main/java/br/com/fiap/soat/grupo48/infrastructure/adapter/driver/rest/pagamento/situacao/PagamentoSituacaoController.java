@@ -5,6 +5,7 @@ import br.com.fiap.soat.grupo48.application.pagamento.model.Pagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.port.api.IPagamentoSituacaoPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -48,6 +49,12 @@ public class PagamentoSituacaoController {
         }
     }
 
+    @Operation(summary = "Recupera a situação do pagamento")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pagamento encontrado e situação devolvida",
+            content = {@Content(mediaType = "application/json",
+            schema = @Schema(implementation = PagamentoSituacaoResponse.class))})
+    })
     @GetMapping(value = "/{codigo}")
     public ResponseEntity<PagamentoSituacaoResponse> getSituacaoPagamento(@PathVariable UUID codigo) {
         Pagamento pagamento = this.pagamentoSituacaoPort.buscarPagamento(codigo);
