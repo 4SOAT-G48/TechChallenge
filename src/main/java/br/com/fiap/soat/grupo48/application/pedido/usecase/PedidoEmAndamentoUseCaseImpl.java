@@ -56,7 +56,10 @@ public class PedidoEmAndamentoUseCaseImpl implements IPedidoEmAndamentoPort {
                     pedido.getPagamento().setMetodoPagamento(metodoPagamento);
                 }
             }
-            pedido.getPagamento().setSituacaoPagamento(SituacaoPagamento.PENDENTE);
+            //TODO: quando mandar para a fonte pagadora mudar novamente para pendente
+            //pedido.getPagamento().setSituacaoPagamento(SituacaoPagamento.PENDENTE);
+            //Setando como aguardando pagamento diretamente, até implementação das integrações
+            pedido.getPagamento().setSituacaoPagamento(SituacaoPagamento.AGUARDANDO_PAGAMENTO);
             pedido.setPagamento( this.pagamentoRepositoryGateway.salvar(pedido.getPagamento()));
         }
 

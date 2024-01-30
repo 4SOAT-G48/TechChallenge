@@ -1,7 +1,9 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pagamento.situacao;
 
 
+import br.com.fiap.soat.grupo48.application.pagamento.model.MetodoPagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.model.Pagamento;
+import br.com.fiap.soat.grupo48.application.pagamento.model.TipoPagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.port.api.IPagamentoSituacaoPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -62,4 +64,12 @@ public class PagamentoSituacaoController {
         return new ResponseEntity<>(pagamentoSituacaoResponse, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/mercadopago/notification")
+    public ResponseEntity<?> notificationMercadoPago(@RequestParam String topic, @RequestParam String id) {
+        if(Objects.nonNull(topic) && topic.equals("payment")) {
+            this.pagamentoSituacaoPort.buscarSituacaoFontePagadora(TipoPagamento.MERCADO_PAGO, id);
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
