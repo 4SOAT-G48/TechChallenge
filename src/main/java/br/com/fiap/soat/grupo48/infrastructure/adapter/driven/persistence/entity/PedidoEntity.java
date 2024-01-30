@@ -27,6 +27,7 @@ public class PedidoEntity {
     @Setter
     @Enumerated(EnumType.STRING)
     private SituacaoPedido situacao;
+
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PedidoItemEntity> itens = new ArrayList<>();
 

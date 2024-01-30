@@ -54,4 +54,6 @@ public interface SpringPedidoRepository extends JpaRepository<PedidoEntity, UUID
             " WHEN p.situacao = 'RECEBIDO' THEN 3 END, " +
             " p.dataCriacao DESC")
     List<PedidoEntity> findPedidosWithoutFinalizados();
+
+    PedidoEntity findByPagamentoCodigo(UUID pagamentoCodigo);
 }

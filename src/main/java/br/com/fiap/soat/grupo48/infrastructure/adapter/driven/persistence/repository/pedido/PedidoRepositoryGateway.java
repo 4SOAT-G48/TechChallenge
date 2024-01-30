@@ -85,4 +85,10 @@ public class PedidoRepositoryGateway implements IPedidoRepositoryGateway {
             return null;
         }
     }
+
+    @Override
+    public Pedido buscarPedidoPeloPagamento(UUID codigoPagamento) {
+        PedidoEntity byPagamento = this.springPedidoRepository.findByPagamentoCodigo(codigoPagamento);
+        return this.pedidoEntityMapper.toPedido(byPagamento);
+    }
 }
