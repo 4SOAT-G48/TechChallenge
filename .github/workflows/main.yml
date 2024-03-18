@@ -23,11 +23,11 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@3
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'adopt'
           package: '*.jar'
       - name: Publish package
-        run: mvn --batch-mode deploy
+        run: mvn --batch-mode --update-snapshots package
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
