@@ -13,7 +13,7 @@ env:
   ECS_SERVICE: fiap-4soat-g48-tc-dev-service # set this to your Amazon ECS service name
   ECS_CLUSTER: fiap-4soat-g48-tc-dev-cluster # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION:
-    fiap-4soat-g48-tc-dev-task # set this to the path to your Amazon ECS task definition
+    file://ecs/fiap-4soat-g48-tc-dev-task:3.json # set this to the path to your Amazon ECS task definition
     # file, e.g. .aws/task-definition.json
   CONTAINER_NAME:
     fiap-4soat-g48-tc # set this to the name of the container in the
