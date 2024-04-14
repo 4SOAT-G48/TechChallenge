@@ -6,6 +6,11 @@ import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.model.SituacaoProduto;
 import br.com.fiap.soat.grupo48.application.produto.valueobject.Imagem;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.jackson.Jacksonized;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +18,11 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Data
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Jacksonized
 @Entity
 @Table(name = "produtos")
 public class ProdutoEntity {
@@ -31,9 +41,6 @@ public class ProdutoEntity {
     @ElementCollection
     @CollectionTable(name = "produto_imagens", joinColumns = @JoinColumn(name = "produto_codigo"))
     private List<ImageEntity> images;
-
-    public ProdutoEntity() {
-    }
 
 
     public ProdutoEntity(Produto produto) {
