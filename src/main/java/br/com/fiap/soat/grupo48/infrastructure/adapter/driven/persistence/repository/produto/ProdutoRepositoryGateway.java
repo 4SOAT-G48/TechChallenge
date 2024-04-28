@@ -4,13 +4,14 @@ import br.com.fiap.soat.grupo48.application.produto.exception.ProdutoNotFoundExc
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoRepositoryGateway;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.ProdutoEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * Implementação de classe para manutenção do produto.
@@ -29,7 +30,13 @@ public class ProdutoRepositoryGateway implements IProdutoRepositoryGateway {
   @Override
   public List<Produto> buscarTodos() {
     List<ProdutoEntity> produtoEntity = this.springProdutoRepository.findAll();
-    return produtoEntity.stream().map(ProdutoEntity::toProduto).collect(Collectors.toList());
+    return produtoEntity.stream().map(ProdutoEntity::toProduto).toList();
+  }
+
+  @Override
+  public Page<Produto> buscarTodos(Pageable pageable) {
+    Page<ProdutoEntity> produtoEntity = this.springProdutoRepository.findAll(pageable);
+    return produtoEntity.map(ProdutoEntity::toProduto);
   }
 
   @Override
@@ -43,12 +50,16 @@ public class ProdutoRepositoryGateway implements IProdutoRepositoryGateway {
   }
 
   @Override
-  public Produto salvar(Produto produto) {
+  public Produto salvar(Produto produto) throws ProdutoNotFoundException {
     ProdutoEntity produtoEntity;
     if (Objects.isNull(produto.getCodigo())) {
       produtoEntity = new ProdutoEntity(produto);
     } else {
-      produtoEntity = this.springProdutoRepository.findById(produto.getCodigo()).get();
+      var produtoEncontrado = this.springProdutoRepository.findById(produto.getCodigo());
+      if (produtoEncontrado.isEmpty()) {
+        throw new ProdutoNotFoundException("Produto não encontrado");
+      }
+      produtoEntity = produtoEncontrado.get();
       produtoEntity.atualizar(produto);
     }
 

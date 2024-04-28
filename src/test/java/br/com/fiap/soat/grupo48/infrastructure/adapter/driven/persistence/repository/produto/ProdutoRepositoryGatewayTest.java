@@ -41,7 +41,7 @@ class ProdutoRepositoryGatewayTest {
   }
 
   @Test
-  void devePermitirCadastrarProduto() {
+  void devePermitirCadastrarProduto() throws ProdutoNotFoundException {
     // Arrange
     var produto = ProdutoHelper.gerarProduto();
 
@@ -114,7 +114,7 @@ class ProdutoRepositoryGatewayTest {
   }
 
   @Test
-  void devePermitirAtualizarProduto() {
+  void devePermitirAtualizarProduto() throws ProdutoNotFoundException {
     // Arrange
     var id = UUID.randomUUID();
     var produtoAntigo = ProdutoHelper.gerarProduto();

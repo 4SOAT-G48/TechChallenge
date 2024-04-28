@@ -32,7 +32,7 @@ class ProdutoRepositoryGatewayIT {
   @Nested
   class CadastrarProduto {
     @Test
-    void devePermitirCadastrarProduto() {
+    void devePermitirCadastrarProduto() throws ProdutoNotFoundException {
       // Arrange
       var produto = ProdutoHelper.gerarProduto();
 

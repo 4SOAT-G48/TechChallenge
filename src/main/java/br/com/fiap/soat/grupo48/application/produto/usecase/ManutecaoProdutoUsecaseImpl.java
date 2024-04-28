@@ -4,6 +4,8 @@ import br.com.fiap.soat.grupo48.application.produto.exception.ProdutoNotFoundExc
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.port.api.IProdutoPort;
 import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoRepositoryGateway;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +30,7 @@ public class ManutecaoProdutoUsecaseImpl implements IProdutoPort {
   }
 
   @Override
-  public Produto criarProduto(Produto produto) {
+  public Produto criarProduto(Produto produto) throws ProdutoNotFoundException {
     return this.produtoRepository.salvar(produto);
   }
 
@@ -44,7 +46,24 @@ public class ManutecaoProdutoUsecaseImpl implements IProdutoPort {
   }
 
   @Override
-  public void excluirProduto(UUID codigo) throws ProdutoNotFoundException {
-    this.produtoRepository.excluir(codigo);
+  public boolean excluirProduto(UUID codigo) throws ProdutoNotFoundException {
+    Produto produtoASerExcluido = this.produtoRepository.buscarPeloCodigo(codigo);
+    if (Objects.nonNull(produtoASerExcluido)) {
+      return this.produtoRepository.excluir(codigo);
+    } else {
+      throw new ProdutoNotFoundException("Produto não apresenta o ID correto");
+    }
   }
+
+  /**
+   * @param pageable
+   * @return
+   */
+  @Override
+  public Page<Produto> buscarProdutosPaginados(Pageable pageable) {
+
+    return this.produtoRepository.buscarTodos(pageable);
+  }
+
+
 }
