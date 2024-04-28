@@ -7,9 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.WeekFields;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -18,6 +15,7 @@ import java.util.Objects;
 public class PedidoAggregate {
 
     private Pedido pedido;
+
     public void montaPedido(Pedido pedido, Cliente cliente) {
 
         this.pedido = new Pedido();
@@ -36,7 +34,6 @@ public class PedidoAggregate {
 
         this.pedido.setDataCriacao(new Timestamp(Calendar.getInstance().getTimeInMillis()));
     }
-
 
 
 }

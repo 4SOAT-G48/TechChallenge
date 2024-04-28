@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface IProdutoPedidoEmAndamentoPort {
     List<Produto> buscarProdutosPorCategoria(Categoria categoria);
+
     List<Produto> buscarProdutosDiponiveisPorCategoria(Categoria categoria);
 }

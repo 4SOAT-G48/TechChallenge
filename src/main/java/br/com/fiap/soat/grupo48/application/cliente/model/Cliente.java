@@ -15,7 +15,7 @@ public class Cliente {
         this.codigo = codigo;
         this.nome = nome;
         this.cpf = cpf;
-        this. email = email;
+        this.email = email;
     }
 
 }

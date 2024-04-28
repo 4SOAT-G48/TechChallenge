@@ -1,7 +1,7 @@
 # Server configuration
 server:
   port: ${SERVER_PORT}
-  
+
 # Importing the .env
 spring:
   config:

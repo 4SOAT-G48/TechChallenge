@@ -18,7 +18,6 @@ public enum SituacaoPagamento {
     APROVADO,
     /**
      * qualquer outra situação diferente de aprovado
-     *
      */
     REPROVADO
 }

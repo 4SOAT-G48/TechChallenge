@@ -15,7 +15,6 @@ import java.util.UUID;
 public class Pedido {
 
 
-
     @Getter
     @Setter
     private UUID codigo;

@@ -34,7 +34,7 @@ public class PedidoItemEntity {
     }
 
     public PedidoItem toPedidoItem() {
-        return new PedidoItem(this.codigo,this.produto.toProduto(), this.quantidade,this.precoUnitario,this.observacao);
+        return new PedidoItem(this.codigo, this.produto.toProduto(), this.quantidade, this.precoUnitario, this.observacao);
     }
 
     public void atualizar(PedidoItem pedidoItem) {

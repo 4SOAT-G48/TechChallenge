@@ -2,7 +2,6 @@ package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.produto;
 
 import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
 import br.com.fiap.soat.grupo48.application.produto.model.SituacaoProduto;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 //@AllArgsConstructor
 public class ProdutoResponse {
-    
+
     private UUID codigo;
     private String nome;
     private Categoria categoria;

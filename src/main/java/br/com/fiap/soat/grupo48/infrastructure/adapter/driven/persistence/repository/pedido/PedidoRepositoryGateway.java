@@ -6,7 +6,6 @@ import br.com.fiap.soat.grupo48.application.pedido.port.spi.IPedidoRepositoryGat
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.PagamentoEntity;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.PedidoEntity;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repository.pagamento.SpringPagamentoRepository;
-import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido.PedidoDTOMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

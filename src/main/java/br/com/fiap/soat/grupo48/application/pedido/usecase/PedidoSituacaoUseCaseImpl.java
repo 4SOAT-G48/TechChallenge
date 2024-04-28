@@ -20,7 +20,7 @@ public class PedidoSituacaoUseCaseImpl implements IPedidoSituacaoPort {
     public boolean atualizarSituacao(UUID codigoPedido, SituacaoPedido situacaoPedido) {
         SituacaoPedido situacaoPedidoAtual = this.pedidoRepositoryGateway.buscaSituacaoPedido(codigoPedido);
         if (situacaoPedidoAtual != SituacaoPedido.FINALIZADO) {
-            this.pedidoRepositoryGateway.atualizarSituacao(codigoPedido,situacaoPedido);
+            this.pedidoRepositoryGateway.atualizarSituacao(codigoPedido, situacaoPedido);
             return true;
         }
         return false;

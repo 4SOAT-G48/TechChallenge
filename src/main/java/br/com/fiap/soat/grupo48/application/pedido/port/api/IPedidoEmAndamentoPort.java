@@ -2,20 +2,22 @@ package br.com.fiap.soat.grupo48.application.pedido.port.api;
 
 import br.com.fiap.soat.grupo48.application.pedido.exception.MetodoPagamentoInvalidoException;
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
+import br.com.fiap.soat.grupo48.application.produto.exception.ProdutoNotFoundException;
 
 public interface IPedidoEmAndamentoPort {
-    /**
-     * Faze de montagem do pedido.
-     * Pode ser desde a adição do primeiro item
-     * até ele escolher concluir o pedido.
-     * @param pedido pedido com os dados a serem salvos
-     * @param cpfCliente número do cpf do cliente, quando logado
-     * @return pedido com os dados conforme salvos
-     */
-    Pedido montaPedido(Pedido pedido, String cpfCliente) throws MetodoPagamentoInvalidoException;
+  /**
+   * Faze de montagem do pedido.
+   * Pode ser desde a adição do primeiro item
+   * até ele escolher concluir o pedido.
+   *
+   * @param pedido     pedido com os dados a serem salvos
+   * @param cpfCliente número do cpf do cliente, quando logado
+   * @return pedido com os dados conforme salvos
+   */
+  Pedido montaPedido(Pedido pedido, String cpfCliente) throws MetodoPagamentoInvalidoException, ProdutoNotFoundException;
 
-    /**
-     * Passa para o pagamento.
-     */
-    void efetuaPagamento();
+  /**
+   * Passa para o pagamento.
+   */
+  void efetuaPagamento();
 }

@@ -29,7 +29,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     private void carregaMetodoPagamento() {
-        if (this.metodoPagamentoPort.buscarQuantidade()==0) {
+        if (this.metodoPagamentoPort.buscarQuantidade() == 0) {
             MetodoPagamento metodoPagamento = new MetodoPagamento(null, "Mercado Pago", TipoPagamento.MERCADO_PAGO, "");
             this.metodoPagamentoPort.salvar(metodoPagamento);
         }
