@@ -1,8 +1,7 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repository.produto;
 
-import br.com.fiap.soat.grupo48.application.produto.model.Categoria;
-import br.com.fiap.soat.grupo48.application.produto.model.SituacaoProduto;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.ProdutoEntity;
+import br.com.fiap.soat.grupo48.utils.ProdutoHelper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,12 +15,11 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class SpringProdutoRepositoryTest {
-
-    @Mock
-    private SpringProdutoRepository springProdutoRepository;
+class SpringProdutoRepositoryTest {
 
     AutoCloseable openMocks;
+    @Mock
+    private SpringProdutoRepository springProdutoRepository;
 
     @BeforeEach
     void setUp() {
@@ -33,20 +31,10 @@ public class SpringProdutoRepositoryTest {
         openMocks.close();
     }
 
-    private ProdutoEntity gerarProdutoEntity() {
-        return ProdutoEntity.builder()
-                .nome("Hambúrguer Simples")
-                .descricao("Hambúrguer de carne 150g com queijo e alface")
-                .preco(20.0)
-                .situacao(SituacaoProduto.DISPONIVEL)
-                .categoria(Categoria.LANCHE)
-                .build();
-    }
-
     @Test
     void devePermitirCadastrarProduto() {
         // Arrange
-        var produtoEntity = this.gerarProdutoEntity();
+        var produtoEntity = ProdutoHelper.gerarProdutoEntity();
 
         when(springProdutoRepository.save(any(ProdutoEntity.class)))
                 .thenReturn(produtoEntity);
@@ -66,7 +54,7 @@ public class SpringProdutoRepositoryTest {
     void devePermitirBuscarProduto() {
         // Arrange
         var codigo = UUID.randomUUID();
-        var produtoEntity = this.gerarProdutoEntity();
+        var produtoEntity = ProdutoHelper.gerarProdutoEntity();
         produtoEntity.setCodigo(codigo);
 
         when(springProdutoRepository.findById(any(UUID.class)))
@@ -110,8 +98,8 @@ public class SpringProdutoRepositoryTest {
     void devePermitirListarProdutos() {
         // Arrange
         var listaProdutos = Arrays.asList(
-                this.gerarProdutoEntity(),
-                this.gerarProdutoEntity());
+                ProdutoHelper.gerarProdutoEntity(),
+                ProdutoHelper.gerarProdutoEntity());
         when(springProdutoRepository.findAll())
                 .thenReturn(listaProdutos);
 
