@@ -3,7 +3,7 @@ spring:
     url: jdbc:h2:mem:testedb
     username: root
     password: toor
-    driverClassName: or.h2.Driver
+    driverClassName: org.h2.Driver
   jpa:
     database: h2
     database-platform: org.hibernate.dialect.H2Dialect

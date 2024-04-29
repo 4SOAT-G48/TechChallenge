@@ -22,7 +22,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
@@ -57,7 +56,6 @@ public class ProdutoController {
 
   @GetMapping(
       value = "/paginados",
-      consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<Page<ProdutoResponse>> getProdutosPaginados(
@@ -84,21 +82,16 @@ public class ProdutoController {
           content = @Content)})
   @GetMapping(
       value = "/{codigo}",
-      consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<?> getProduto(@PathVariable UUID codigo) {
     Produto produto = null;
     try {
       produto = this.produtoServicePort.buscarPeloCodigo(codigo);
-
-      if (Objects.isNull(produto)) {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-      }
       ProdutoResponse response = this.produtoDTOMapper.toResponse(produto);
       return new ResponseEntity<>(response, HttpStatus.OK);
-    } catch (ApplicationException e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    } catch (ProdutoNotFoundException e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
   }
 
@@ -130,15 +123,14 @@ public class ProdutoController {
       Produto produto = this.produtoDTOMapper.toProduto(request);
       Produto produtoAtualizado = this.produtoServicePort.atualizarProduto(codigo, produto);
       ProdutoResponse response = this.produtoDTOMapper.toResponse(produtoAtualizado);
-      return new ResponseEntity<>(response, HttpStatus.OK);
-    } catch (ApplicationException e) { //todas as exceções da aplicação/negócio
+      return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
+    } catch (ProdutoNotFoundException e) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
   }
 
   @DeleteMapping(
       value = "{codigo}",
-      consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<?> deleteProduto(@PathVariable UUID codigo) {
@@ -238,6 +230,6 @@ public class ProdutoController {
     } catch (ProdutoNotFoundException e) {
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 }

@@ -73,7 +73,7 @@ class ProdutoControllerTest {
   @Nested
   class CadastrarProduto {
     @Test
-    void devePermitirCadastrarProduto() throws Exception {
+    void devePermitirCriarProduto() throws Exception {
       // Arrange
       var produto = ProdutoHelper.gerarProduto();
       var produtoRequest = ProdutoHelper.gerarProdutoRequest();
@@ -103,7 +103,7 @@ class ProdutoControllerTest {
     }
 
     @Test
-    void deveRetornarUnsupportedMediaTypeQuandoCadastrarProdutoComPyloadXML() throws Exception {
+    void deveRetornarUnsupportedMediaTypeQuandoPassadoPayloadXML() throws Exception {
       // Arrange
       var produtoRequest = ProdutoHelper.gerarProdutoRequest();
 
@@ -224,7 +224,7 @@ class ProdutoControllerTest {
     }
 
     @Test
-    void devePermitirBuscarProduto_GerarException_QuandoIdNaoExiste() throws Exception {
+    void deveGerarExceptionQuandoIdNaoExiste() throws Exception {
       // Arrange
       var id = UUID.fromString("527d522b-1793-4b6b-b68d-fdc479900858");
 
