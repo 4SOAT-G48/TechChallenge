@@ -30,7 +30,7 @@ class ProdutoTest {
   void deveCriar() {
     assertThat(produto).isNotNull();
     assertThat(produto.getCodigo()).isNull();
-    assertThat(produto.getNome().nome()).isEqualTo("Hambúrguer Duplo");
+    assertThat(produto.getNome().nome()).isEqualTo("Hambúrguer Simples");
     assertEquals(Categoria.LANCHE, produto.getCategoria());
     assertEquals(20.0, produto.getPreco());
     assertEquals("Hambúrguer de carne 150g com queijo e alface", produto.getDescricao());

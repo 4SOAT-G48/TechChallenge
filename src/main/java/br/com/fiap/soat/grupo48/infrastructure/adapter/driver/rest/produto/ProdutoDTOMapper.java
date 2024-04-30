@@ -4,6 +4,7 @@ import br.com.fiap.soat.grupo48.application.produto.exception.ProdutoNotFoundExc
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.application.produto.port.spi.IProdutoRepositoryGateway;
 import br.com.fiap.soat.grupo48.application.produto.valueobject.Imagem;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
@@ -44,7 +45,7 @@ public class ProdutoDTOMapper {
     return listProduto.stream().map(this::toResponse).toList();
   }
 
-  public Page<ProdutoResponse> toListResponse(Page<Produto> produtos) {
+  public Page<ProdutoResponse> toListResponse(@NotNull Page<Produto> produtos) {
     return produtos.map(this::toResponse);
   }
 }
