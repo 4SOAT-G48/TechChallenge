@@ -62,3 +62,33 @@ Tanto para executar como para desenvolver são necessários os seguintes itens:
        ``` json
        {"id":1,"conteudo":"Olá, Mundo!"} 
        ```
+
+# Testes
+
+## Via terminal
+
+1. Para os testes unitários
+    1. Executar
+   ``` shell
+   mvn test
+   ```
+1. Para os testes integrados
+    1. Executar
+   ``` shell
+   mvn test -Pintegration-test
+   ```
+1. Para os testes de comportamento (BDD)
+    1. Criar o arquivo *.env* com os dados da aplicação (banco, porta, etc..)
+        1. Ver quais parametros configurar usando o arquivo *.env.exemplo*
+    1. Iniciar a plicação com o script pronto
+    ``` shell
+    ./run-project-in-terminal.sh
+    ```  
+    1. Executar os testes
+    ``` shell
+    mvn test -Psystem-test
+    ```
+    1. Para executar os teste com as anotações, ex: tipo smoke
+   ``` shell
+    mvn test -Psystem-test -Dcucumber.filter.tags="@smoke"
+    ```

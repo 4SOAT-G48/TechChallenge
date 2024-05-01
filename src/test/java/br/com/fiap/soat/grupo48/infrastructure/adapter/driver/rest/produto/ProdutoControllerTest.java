@@ -29,7 +29,6 @@ import static org.hamcrest.Matchers.not;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class ProdutoControllerTest {
@@ -79,15 +78,7 @@ class ProdutoControllerTest {
     @Test
     void devePermitirCriarProduto() throws Exception {
       // Arrange
-      var produto = ProdutoHelper.gerarProduto();
       var produtoRequest = ProdutoHelper.gerarProdutoRequest();
-//      when(springProdutoRepository.save(any(ProdutoEntity.class)))
-//          // o código é gerado pelo banco de dados
-//          .thenAnswer(i -> {
-//            ProdutoEntity produtoEntity = (ProdutoEntity) i.getArguments()[0];
-//            produtoEntity.setCodigo(UUID.randomUUID());
-//            return produtoEntity;
-//          });
       when(manutecaoProdutoUsecase.criarProduto(any(Produto.class)))
           .thenAnswer(i -> {
             Produto produtoCriado = (Produto) i.getArguments()[0];
@@ -304,7 +295,7 @@ class ProdutoControllerTest {
               .contentType(MediaType.APPLICATION_JSON)
               .param("page", "0")
               .param("size", "10"))
-          .andDo(print())
+          //.andDo(print())
           .andExpect(status().isOk())
           .andExpect(jsonPath("$.content", not(empty())))
           .andExpect(jsonPath("$.totalPages").value(1))

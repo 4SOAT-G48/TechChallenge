@@ -5,6 +5,9 @@ import br.com.fiap.soat.grupo48.application.produto.exception.ProdutoNotFoundExc
 import br.com.fiap.soat.grupo48.application.produto.model.Produto;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.ProdutoEntity;
 import br.com.fiap.soat.grupo48.utils.ProdutoHelper;
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,6 +80,7 @@ class ProdutoRepositoryGatewayTest {
   }
 
   @Test
+  @Severity(SeverityLevel.BLOCKER)
   void devePermitirBuscarProduto() throws ProdutoNotFoundException {
     // Arrange
     var id = UUID.randomUUID();
@@ -96,6 +100,8 @@ class ProdutoRepositoryGatewayTest {
   }
 
   @Test
+  @Severity(SeverityLevel.CRITICAL)
+  @Description("Valida o cenário de exeção ao efetuar uma busca do produto quando o ID não existir")
   void devePermitirBuscarProduto_GerarException_QuandoIdNaoExiste() {
 
     // Arrange

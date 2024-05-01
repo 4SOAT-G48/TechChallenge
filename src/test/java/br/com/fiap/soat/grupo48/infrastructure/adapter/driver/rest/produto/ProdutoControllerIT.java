@@ -1,6 +1,7 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.produto;
 
 import br.com.fiap.soat.grupo48.utils.ProdutoHelper;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -43,6 +44,7 @@ class ProdutoControllerIT {
 
       // Act & Assert
       given()
+          .filter(new AllureRestAssured())
           .contentType(MediaType.APPLICATION_JSON_VALUE)
           .body(produtoRequest)
           //.log().all()
@@ -61,6 +63,7 @@ class ProdutoControllerIT {
 
       // Act & Assert
       given()
+          .filter(new AllureRestAssured())
           .contentType(MediaType.APPLICATION_XML_VALUE)
           .body(ProdutoHelper.asXmlString(produtoRequest))
 //          .log().all()
@@ -77,7 +80,9 @@ class ProdutoControllerIT {
     @Test
     void deveGerarProdutosIniciais() {
       // Act & Assert
-      when()
+      given()
+          .filter(new AllureRestAssured())
+          .when()
           .get("/api/produtos/populaprodutosiniciais")
           .then()
           .statusCode(HttpStatus.OK.value());
@@ -92,7 +97,9 @@ class ProdutoControllerIT {
       var id = UUID.fromString("3c2bea4f-7687-4e0a-8c3d-9153fb4eb639");
 
       // Act & Assert
-      when()
+      given()
+          .filter(new AllureRestAssured())
+          .when()
           .get("/api/produtos/{id}", id)
           .then()
 //          .log().all()
@@ -105,7 +112,9 @@ class ProdutoControllerIT {
       var id = UUID.fromString("7dffa7d6-713a-4bac-bcdd-5fcf0fbcf3a5");
 
       // Act & Assert
-      when()
+      given()
+          .filter(new AllureRestAssured())
+          .when()
           .get("/api/produtos/{id}", id)
           .then()
           .statusCode(HttpStatus.NOT_FOUND.value());
@@ -125,6 +134,7 @@ class ProdutoControllerIT {
 
       // Act & Assert
       given()
+          .filter(new AllureRestAssured())
           .contentType(MediaType.APPLICATION_JSON_VALUE)
           .body(produtoRequest)
           .when()
@@ -147,6 +157,7 @@ class ProdutoControllerIT {
 
       // Act & Assert
       given()
+          .filter(new AllureRestAssured())
           .contentType(MediaType.APPLICATION_JSON_VALUE)
           .body(produtoRequest)
           .when()
@@ -170,6 +181,7 @@ class ProdutoControllerIT {
 
       // Act & Assert
       given()
+          .filter(new AllureRestAssured())
           .contentType(MediaType.APPLICATION_JSON_VALUE)
           .body(produtoRequest)
           .when()
@@ -202,7 +214,6 @@ class ProdutoControllerIT {
           .body(matchesJsonSchemaInClasspath("schemas/Error.schema.json"))
           .body("error", equalTo("Unsupported Media Type"))
           .body("path", equalTo("/api/produtos/" + id));
-      ;
     }
 
   }
