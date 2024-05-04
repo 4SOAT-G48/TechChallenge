@@ -14,7 +14,8 @@ spring:
     password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    #database-platform: org.hibernate.dialect.PostgreSQLDialect
+    #open-in-view: false
     hibernate:
       ddl-auto: update
     show-sql: true
@@ -26,6 +27,8 @@ spring:
 logging:
   level:
     org.hibernate: ${LOG_LEVEL}
+    root: ${LOG_LEVEL}
+    org.springframework: ${LOG_LEVEL}
   file:
     name: ${LOG_PATH}
 

@@ -6,8 +6,8 @@ spring:
     driverClassName: org.h2.Driver
   jpa:
     database: h2
-    database-platform: org.hibernate.dialect.H2Dialect
-    show-sql: true
+    #database-platform: org.hibernate.dialect.H2Dialect
+    #show-sql: true
     # Utilizar apenas para desenvolvimento
     defer-datasource-initialization: true
     hibernate:
