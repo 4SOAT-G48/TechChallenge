@@ -32,17 +32,24 @@ public class MetodoPagamentoEntity {
     @Column(name = "url_imagem")
     private String urlImagem;
 
-    @Column(name = "data_criacao", nullable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "data_criacao", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCriacao;
 
-    @Column(name = "data_atualizacao", nullable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "data_atualizacao", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataAtualizacao;
 
+    public MetodoPagamentoEntity(UUID codigo, String nome, TipoPagamento tipoPagamento, String urlImagem) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.tipoPagamento = tipoPagamento;
+        this.urlImagem = urlImagem;
+    }
+
     @PrePersist
     public void insereDatas() {
-        if(Objects.isNull(this.dataCriacao)) {
+        if (Objects.isNull(this.dataCriacao)) {
             this.dataCriacao = new Timestamp(Calendar.getInstance().getTimeInMillis());
             this.dataAtualizacao = new Timestamp(Calendar.getInstance().getTimeInMillis());
         }
@@ -51,13 +58,6 @@ public class MetodoPagamentoEntity {
     @PreUpdate
     public void atualizaDataAtualizacao() {
         this.dataAtualizacao = new Timestamp(Calendar.getInstance().getTimeInMillis());
-    }
-
-    public MetodoPagamentoEntity(UUID codigo, String nome, TipoPagamento tipoPagamento, String urlImagem) {
-        this.codigo = codigo;
-        this.nome = nome;
-        this.tipoPagamento = tipoPagamento;
-        this.urlImagem = urlImagem;
     }
 
     public void atualizar(String nome, TipoPagamento tipoPagamento, String urlImagem) {

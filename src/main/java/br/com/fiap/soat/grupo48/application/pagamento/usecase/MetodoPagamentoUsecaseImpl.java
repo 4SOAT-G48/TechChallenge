@@ -26,6 +26,6 @@ public class MetodoPagamentoUsecaseImpl implements IMetodoPagamentoPort {
 
     @Override
     public MetodoPagamento salvar(MetodoPagamento metodoPagamento) {
-        return this.metodoPagamentoRepositoryGateway.salvar(metodoPagamento.getCodigo(),metodoPagamento.getNome(),metodoPagamento.getTipoPagamento(),metodoPagamento.getUrlImagem());
+        return this.metodoPagamentoRepositoryGateway.salvar(metodoPagamento.getCodigo(), metodoPagamento.getNome(), metodoPagamento.getTipoPagamento(), metodoPagamento.getUrlImagem());
     }
 }

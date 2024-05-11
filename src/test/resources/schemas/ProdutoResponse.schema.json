@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft-06/schema",
+  "$id": "http://example.com/example.json",
+  "title": "Root Schema",
+  "type": "object",
+  "required": [
+    "codigo",
+    "nome",
+    "categoria",
+    "preco",
+    "descricao",
+    "situacao",
+    "imagens"
+  ],
+  "properties": {
+    "codigo": {
+      "title": "The codigo Schema",
+      "type": "string"
+    },
+    "nome": {
+      "title": "The nome Schema",
+      "type": "string"
+    },
+    "categoria": {
+      "title": "The categoria Schema",
+      "type": "string"
+    },
+    "preco": {
+      "title": "The preco Schema",
+      "type": "number"
+    },
+    "descricao": {
+      "title": "The descricao Schema",
+      "type": "string"
+    },
+    "situacao": {
+      "title": "The situacao Schema",
+      "type": "string"
+    },
+    "imagens": {
+      "title": "The imagens Schema",
+      "type": "array",
+      "items": {}
+    }
+  }
+}

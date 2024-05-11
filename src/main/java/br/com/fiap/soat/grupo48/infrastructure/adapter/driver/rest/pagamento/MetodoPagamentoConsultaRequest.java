@@ -1,6 +1,5 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pagamento;
 
-import br.com.fiap.soat.grupo48.application.pagamento.model.TipoPagamento;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

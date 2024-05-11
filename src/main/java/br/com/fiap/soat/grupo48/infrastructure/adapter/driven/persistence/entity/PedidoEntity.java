@@ -1,6 +1,5 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity;
 
-import br.com.fiap.soat.grupo48.application.pagamento.model.Pagamento;
 import br.com.fiap.soat.grupo48.application.pedido.model.Pedido;
 import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import jakarta.persistence.*;
@@ -38,11 +37,11 @@ public class PedidoEntity {
     @JoinColumn(name = "pagamento_codigo")
     private PagamentoEntity pagamento;
 
-    @Column(name = "data_criacao", nullable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "data_criacao", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataCriacao;
 
-    @Column(name = "data_atualizacao", nullable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "data_atualizacao", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataAtualizacao;
 
@@ -54,7 +53,7 @@ public class PedidoEntity {
         this.atualizar(pedido);
     }
 
-    public void atualizar(Pedido pedido ) {
+    public void atualizar(Pedido pedido) {
         if (Objects.nonNull(pedido.getCliente())) {
             this.cliente = new ClienteEntity(pedido.getCliente());
         }
@@ -71,7 +70,7 @@ public class PedidoEntity {
 
     @PrePersist
     public void insereDatas() {
-        if(Objects.isNull(this.dataCriacao)) {
+        if (Objects.isNull(this.dataCriacao)) {
             this.dataCriacao = new Timestamp(Calendar.getInstance().getTimeInMillis());
             this.dataAtualizacao = new Timestamp(Calendar.getInstance().getTimeInMillis());
         }

@@ -27,6 +27,7 @@ public class MetodoPagamentoController {
     private final PagamentoMapper pagamentoMapper;
 
     private final MetodoPagamentoMapper metodoPagamentoMapper;
+
     public MetodoPagamentoController(IMetodoPagamentoPort metodoPagamentoPort, PagamentoMapper pagamentoMapper, MetodoPagamentoMapper metodoPagamentoMapper) {
         this.metodoPagamentoPort = metodoPagamentoPort;
         this.pagamentoMapper = pagamentoMapper;
@@ -35,12 +36,12 @@ public class MetodoPagamentoController {
 
     @Operation(summary = "Recupera lista de metodos de pagamentos")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Metodos de pagamentos encontrados",
-            content = {@Content(mediaType = "application/json",
-                schema = @Schema(implementation =  MetodoPagamentoResponse.class)
+            @ApiResponse(responseCode = "200", description = "Metodos de pagamentos encontrados",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = MetodoPagamentoResponse.class)
+                    )
+                    }
             )
-            }
-        )
     })
     @GetMapping
     public ResponseEntity<List<MetodoPagamentoResponse>> getMetodos() {

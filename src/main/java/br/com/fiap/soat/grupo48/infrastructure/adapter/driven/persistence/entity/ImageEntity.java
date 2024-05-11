@@ -16,6 +16,6 @@ public class ImageEntity {
     private String url;
 
     public Imagem toImage() {
-        return new Imagem( this.url);
+        return new Imagem(this.url);
     }
 }

@@ -22,7 +22,7 @@ FROM eclipse-temurin:17-jdk-alpine
 COPY --from=build /app/target/grupo48-0.0.1-SNAPSHOT.jar /app.jar
 
 # Porta padrão da aplicação Spring Boot
-EXPOSE 8081
+EXPOSE 8080
 
 # Montagem de volume para registro de logs
 VOLUME /logs

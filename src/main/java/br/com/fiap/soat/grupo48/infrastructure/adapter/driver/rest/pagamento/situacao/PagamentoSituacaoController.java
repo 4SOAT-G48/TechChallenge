@@ -1,7 +1,6 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pagamento.situacao;
 
 
-import br.com.fiap.soat.grupo48.application.pagamento.model.MetodoPagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.model.Pagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.model.TipoPagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.port.api.IPagamentoSituacaoPort;
@@ -34,8 +33,8 @@ public class PagamentoSituacaoController {
 
     @Operation(summary = "Atualiza situação do pagamento do pedido")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Situação do Pagamento Atualizado", content = { @Content}),
-            @ApiResponse(responseCode = "404", description = "Pagamento não Encontrado", content = { @Content }),
+            @ApiResponse(responseCode = "200", description = "Situação do Pagamento Atualizado", content = {@Content}),
+            @ApiResponse(responseCode = "404", description = "Pagamento não Encontrado", content = {@Content}),
     })
     @PutMapping
     public ResponseEntity<?> updateSituacaoPagamento(@RequestBody PagamentoSituacaoRequest request) {
@@ -54,8 +53,8 @@ public class PagamentoSituacaoController {
     @Operation(summary = "Recupera a situação do pagamento")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pagamento encontrado e situação devolvida",
-            content = {@Content(mediaType = "application/json",
-            schema = @Schema(implementation = PagamentoSituacaoResponse.class))})
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = PagamentoSituacaoResponse.class))})
     })
     @GetMapping(value = "/{codigo}")
     public ResponseEntity<PagamentoSituacaoResponse> getSituacaoPagamento(@PathVariable UUID codigo) {
@@ -66,7 +65,7 @@ public class PagamentoSituacaoController {
 
     @GetMapping(value = "/mercadopago/notification")
     public ResponseEntity<?> notificationMercadoPago(@RequestParam String topic, @RequestParam String id) {
-        if(Objects.nonNull(topic) && topic.equals("payment")) {
+        if (Objects.nonNull(topic) && topic.equals("payment")) {
             this.pagamentoSituacaoPort.buscarSituacaoFontePagadora(TipoPagamento.MERCADO_PAGO, id);
         }
 

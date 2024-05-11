@@ -1,6 +1,5 @@
 package br.com.fiap.soat.grupo48.application.pagamento.usecase;
 
-import br.com.fiap.soat.grupo48.application.pagamento.model.MetodoPagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.model.Pagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.model.SituacaoPagamento;
 import br.com.fiap.soat.grupo48.application.pagamento.model.TipoPagamento;
@@ -38,11 +37,11 @@ public class PagamentoSituacaoUsecaseImpl implements IPagamentoSituacaoPort {
 
             // se o pagamento foi aprovado
             if (pagamentoAntes.getSituacaoPagamento().equals(SituacaoPagamento.AGUARDANDO_PAGAMENTO)
-                && pagamentoAtual.getSituacaoPagamento().equals(SituacaoPagamento.APROVADO)) {
+                    && pagamentoAtual.getSituacaoPagamento().equals(SituacaoPagamento.APROVADO)) {
                 Pedido pedido = this.pedidoRepositoryGateway.buscarPedidoPeloPagamento(pagamentoAtual.getCodigo());
                 this.pedidoRepositoryGateway.atualizarSituacao(pedido.getCodigo(), SituacaoPedido.RECEBIDO);
 
-            //se o pagamento foi reprovado
+                //se o pagamento foi reprovado
             } else if (pagamentoAntes.getSituacaoPagamento().equals(SituacaoPagamento.AGUARDANDO_PAGAMENTO)
                     && pagamentoAtual.getSituacaoPagamento().equals(SituacaoPagamento.REPROVADO)) {
                 Pedido pedido = this.pedidoRepositoryGateway.buscarPedidoPeloPagamento(pagamentoAtual.getCodigo());

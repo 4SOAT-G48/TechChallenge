@@ -20,6 +20,7 @@ public interface SpringPedidoRepository extends JpaRepository<PedidoEntity, UUID
      *     <li>Ordem por data de criação: Pedidos mais antigos primeiro e mais novos depois</li>
      *     <li>Filtro: Pedidos com as situações passadas por parâmetro {@code situacoes}</li>
      * <ul/>
+     *
      * @param situacoes
      * @return lista de pedidos ordenados
      */

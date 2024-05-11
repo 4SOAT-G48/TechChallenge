@@ -26,13 +26,13 @@ public class ClienteController {
 
     @Operation(summary = "Busca usuário por cpf")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuário encontrado", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))}),
+            @ApiResponse(responseCode = "200", description = "Usuário encontrado", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))}),
     })
     @GetMapping(value = "/{cpf}")
     public ResponseEntity<Cliente> getCliente(@PathVariable String cpf) {
         Cliente cliente = this.clientePort.buscarPeloCpf(cpf);
 
-        if(Objects.isNull((cliente))) {
+        if (Objects.isNull((cliente))) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(cliente, HttpStatus.OK);
@@ -41,13 +41,13 @@ public class ClienteController {
 
     @Operation(summary = "Adiciona novo usuário")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Usuário adicionado", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))}),
-            @ApiResponse(responseCode = "400", description = "Usuário duplicado", content = { @Content }),
+            @ApiResponse(responseCode = "200", description = "Usuário adicionado", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Cliente.class))}),
+            @ApiResponse(responseCode = "400", description = "Usuário duplicado", content = {@Content}),
     })
     @PostMapping
     public ResponseEntity<Cliente> criarCliente(@RequestBody Cliente cliente) {
         Cliente buscarCliente = this.clientePort.buscarPeloCpf(cliente.getCpf());
-        if(Objects.isNull(buscarCliente)) {
+        if (Objects.isNull(buscarCliente)) {
             Cliente clienteSave = this.clientePort.criarCliente(cliente);
             return new ResponseEntity<>(clienteSave, HttpStatus.CREATED);
         } else {

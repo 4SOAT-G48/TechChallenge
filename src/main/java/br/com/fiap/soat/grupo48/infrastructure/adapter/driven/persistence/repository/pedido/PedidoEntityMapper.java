@@ -22,15 +22,15 @@ public class PedidoEntityMapper {
 
 
     public Pedido toPedido(PedidoEntity pedidoEntity) {
-        return new Pedido(pedidoEntity.getCodigo(),pedidoEntity.getCliente().toCliente(),
-                pedidoEntity.getSituacao(),pedidoEntity.getIdentificacao(),
+        return new Pedido(pedidoEntity.getCodigo(), pedidoEntity.getCliente().toCliente(),
+                pedidoEntity.getSituacao(), pedidoEntity.getIdentificacao(),
                 pedidoEntity.getItens().stream().map(this::toPedidoItem).collect(Collectors.toList()),
                 this.pagamentoMapper.toPagamento(pedidoEntity.getPagamento()),
                 pedidoEntity.getDataCriacao(), pedidoEntity.getDataAtualizacao());
     }
 
     private PedidoItem toPedidoItem(PedidoItemEntity pedidoItemEntity) {
-        return new PedidoItem(pedidoItemEntity.getCodigo(),pedidoItemEntity.getProduto().toProduto(),
-                pedidoItemEntity.getQuantidade(),pedidoItemEntity.getPrecoUnitario(),pedidoItemEntity.getObservacao());
+        return new PedidoItem(pedidoItemEntity.getCodigo(), pedidoItemEntity.getProduto().toProduto(),
+                pedidoItemEntity.getQuantidade(), pedidoItemEntity.getPrecoUnitario(), pedidoItemEntity.getObservacao());
     }
 }

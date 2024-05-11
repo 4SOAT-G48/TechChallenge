@@ -1,7 +1,6 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pedido;
 
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pagamento.PagamentoCriacaoRequest;
-import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pagamento.PagamentoRequest;
 import lombok.*;
 
 import java.util.List;

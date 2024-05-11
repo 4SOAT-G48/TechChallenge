@@ -1,7 +1,6 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity;
 
 import br.com.fiap.soat.grupo48.application.pagamento.model.SituacaoPagamento;
-import br.com.fiap.soat.grupo48.application.pedido.model.SituacaoPedido;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,15 +24,21 @@ public class PagamentoEntity {
     private UUID codigo;
 
     @ManyToOne
-    @JoinColumn(name = "metodo_pagamento" , nullable = false)
+    @JoinColumn(name = "metodo_pagamento", nullable = false)
     private MetodoPagamentoEntity metodoPagamento;
 
-    @Column(name = "situacao_pagamento",nullable = false)
+    @Column(name = "situacao_pagamento", nullable = false)
     @Enumerated(EnumType.STRING)
     private SituacaoPagamento situacaoPagamento;
 
     @OneToOne(mappedBy = "pagamento")
     private PedidoEntity pedido;
+    @Column(name = "data_criacao", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataCriacao;
+    @Column(name = "data_atualizacao", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataAtualizacao;
 
     public PagamentoEntity(UUID codigo, MetodoPagamentoEntity metodoPagamento, SituacaoPagamento situacaoPagamento, PedidoEntity pedido) {
         this.codigo = codigo;
@@ -50,17 +55,9 @@ public class PagamentoEntity {
         this.situacaoPagamento = situacaoPagamento;
     }
 
-    @Column(name = "data_criacao", nullable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dataCriacao;
-
-    @Column(name = "data_atualizacao", nullable = false, columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dataAtualizacao;
-
     @PrePersist
     public void insereDatas() {
-        if(Objects.isNull(this.dataCriacao)) {
+        if (Objects.isNull(this.dataCriacao)) {
             this.dataCriacao = new Timestamp(Calendar.getInstance().getTimeInMillis());
             this.dataAtualizacao = new Timestamp(Calendar.getInstance().getTimeInMillis());
         }

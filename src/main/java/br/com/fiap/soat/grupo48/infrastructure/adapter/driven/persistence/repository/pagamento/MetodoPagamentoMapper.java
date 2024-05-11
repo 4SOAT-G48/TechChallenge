@@ -1,9 +1,7 @@
 package br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.repository.pagamento;
 
 import br.com.fiap.soat.grupo48.application.pagamento.model.MetodoPagamento;
-import br.com.fiap.soat.grupo48.application.pagamento.model.TipoPagamento;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driven.persistence.entity.MetodoPagamentoEntity;
-import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pagamento.MetodoPagamentoRequest;
 import br.com.fiap.soat.grupo48.infrastructure.adapter.driver.rest.pagamento.MetodoPagamentoResponse;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +13,9 @@ public class MetodoPagamentoMapper {
 
     public MetodoPagamento toMetodoPagamento(MetodoPagamentoEntity metodoPagamentoEntity) {
         return new MetodoPagamento(metodoPagamentoEntity.getCodigo(),
-                                    metodoPagamentoEntity.getNome(),
-                                    metodoPagamentoEntity.getTipoPagamento(),
-                                    metodoPagamentoEntity.getUrlImagem());
+                metodoPagamentoEntity.getNome(),
+                metodoPagamentoEntity.getTipoPagamento(),
+                metodoPagamentoEntity.getUrlImagem());
     }
 
     public List<MetodoPagamentoResponse> toListResponse(List<MetodoPagamento> metodoPagamentos) {
@@ -25,6 +23,6 @@ public class MetodoPagamentoMapper {
     }
 
     private MetodoPagamentoResponse toResponse(MetodoPagamento metodoPagamento) {
-        return new MetodoPagamentoResponse(metodoPagamento.getCodigo(),metodoPagamento.getNome(), metodoPagamento.getTipoPagamento(),metodoPagamento.getUrlImagem());
+        return new MetodoPagamentoResponse(metodoPagamento.getCodigo(), metodoPagamento.getNome(), metodoPagamento.getTipoPagamento(), metodoPagamento.getUrlImagem());
     }
 }
